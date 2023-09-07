@@ -37,7 +37,11 @@ function establishWebSocketConnection(tabId) {
 chrome.action.onClicked.addListener((tab) => {
     if (!socket) {
         // If socket is not connected, display the div first
-        chrome.tabs.sendMessage(tab.id, { action: "toggleWebSocketDiv" }, () => {
+        chrome.tabs.sendMessage(tab.id, { action: "toggleWebSocketDiv" }, (response) => {
+            if (chrome.runtime.lastError) {
+                console.error(chrome.runtime.lastError);
+                return;
+            }
             // After the div is displayed, establish the WebSocket connection
             establishWebSocketConnection(tab.id);
         });
