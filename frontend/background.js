@@ -1,10 +1,14 @@
 let socket = null; // Global state for the WebSocket connection
+let retryCount = 0;
+const MAX_RETRIES = 3;
+const RETRY_DELAY = 5000; // 5 seconds
 
 function establishWebSocketConnection(tabId) {
     socket = new WebSocket("ws://localhost:8080/2364966");
 
     socket.onopen = function (e) {
         console.log("[open] Connection established to localhost:8080");
+        retryCount = 0; // Reset retry count on successful connection
     };
 
     socket.onmessage = function (event) {
@@ -20,6 +24,17 @@ function establishWebSocketConnection(tabId) {
 
     socket.onerror = function (error) {
         console.log(`[error] ${error.message}`);
+        if (retryCount < MAX_RETRIES) {
+            retryCount++;
+            console.log(`Retrying connection (${retryCount}/${MAX_RETRIES})...`);
+            setTimeout(() => establishWebSocketConnection(tabId), RETRY_DELAY);
+        } else {
+            console.log("Max retries reached. Connection failed.");
+            chrome.tabs.sendMessage(tabId, {
+                action: "updateWebSocketData",
+                data: { error: "Failed to connect to server." }
+            });
+        }
     };
 
     socket.onclose = function (event) {
