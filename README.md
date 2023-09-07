@@ -53,3 +53,4 @@ npm run start
 ```
 
 Once the server is running you can connect via the following URL `ws://localhost:8080/{series_ID}` replacing the `{SERIES_ID}` with one listed above. 
+# g-r-i-d
