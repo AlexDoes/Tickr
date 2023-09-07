@@ -1,11 +1,9 @@
+.env
 *.jsonl
 *.json
-!manifest.json
+*.zip
 node_modules
+!manifest.json
 !package.json
 dota
-*.zip
-backend/node_modules
-backend/dist
-backend/.env
-.env
+dist
