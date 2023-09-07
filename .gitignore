@@ -1,5 +1,6 @@
 *.jsonl
 *.json
+!manifest.json
 node_modules
 !package.json
 backend/node_modules

@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Heavenly Beauty",
+  "version": "1.0",
+  "description": "Heavenly Beauty is a chrome extension that will display some grid data",
+  "permissions": ["activeTab", "scripting"],
+  "action": {
+    "default_popup": "root.html",
+    "default_icon": {
+      "16": "grid-icon.jpeg"
+    }
+  }
+}
