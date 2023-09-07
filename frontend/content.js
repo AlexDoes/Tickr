@@ -1,5 +1,12 @@
 let isDivDisplayed = false; // Declare this variable at the top
 
+function setLoadingState() {
+  let displayDiv = document.getElementById("websocketDataDiv");
+  if (displayDiv) {
+      displayDiv.innerHTML = "Connecting to server...";
+  }
+}
+
 function adjustFixedElements() {
   // Get all elements with position 'fixed' or 'sticky'
   let fixedElements = [...document.querySelectorAll("*")].filter((el) => {
@@ -52,6 +59,7 @@ function displayDiv() {
   
       adjustFixedElements();
       isDivDisplayed = true;
+      setLoadingState();
     }
   }
 
