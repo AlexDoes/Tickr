@@ -22,7 +22,7 @@ function adjustFixedElements() {
   });
 }
 
-function displayDiv() {
+function displayDiv(callback) {
   console.log("displayDiv function called");
   let existingDiv = document.getElementById("websocketDataDiv");
   if (existingDiv) {
@@ -45,6 +45,11 @@ function displayDiv() {
 
     // Append the div to the body of the current tab
     document.body.appendChild(displayDiv);
+
+    // Execute the callback function if provided
+    if (callback && typeof callback === "function") {
+      callback();
+    }
 
     // Adjust the rest of the content
     let originalMarginTop = window.getComputedStyle(document.body).marginTop;
@@ -77,7 +82,10 @@ function hideDiv() {
 
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   if (message.action === "toggleWebSocketDiv") {
-    displayDiv(); // Toggle the WebSocket data div
+    displayDiv(() => {
+      // Inform the background script to establish the WebSocket connection
+      chrome.runtime.sendMessage({ action: "establishWebSocketConnection" });
+    });
     sendResponse({ status: "Div toggled successfully" });
   } else if (message.action === "updateWebSocketData") {
     // Update the WebSocket data div with the received data
