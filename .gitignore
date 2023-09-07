@@ -3,6 +3,8 @@
 !manifest.json
 node_modules
 !package.json
+dota
+*.zip
 backend/node_modules
 backend/dist
 backend/.env
