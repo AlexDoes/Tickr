@@ -15,9 +15,20 @@ function WebSocketDataDiv() {
     }
 }, []);
 
+const divStyle = {
+    overflowY: 'auto',
+    overflowX: 'hidden', // Hide horizontal overflow
+    maxHeight: '100%',
+    maxWidth: '100%',
+    padding: '10px',
+    boxSizing: 'border-box',
+    wordWrap: 'break-word',
+    wordBreak: 'break-all'
+};
+
 
   return (
-    <div id="websocketDataDiv" style={{ /* your styles here */ }}>
+    <div id="websocketDataDiv" style={divStyle}>
       {data ? JSON.stringify(data) : "WebSocket Data Will Appear Here"}
     </div>
   );
