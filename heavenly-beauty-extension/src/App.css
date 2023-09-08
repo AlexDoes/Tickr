@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+.map-container {
+  position: relative;
+}
+
+.dota2-map, .heatmap-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 500px;
+  max-height: 500px;
+}
+
+.heatmap-layer {
+  pointer-events: none;
+  /* background-color: rgba(0, 0, 40, 15); */
+  opacity: .8;
+}
