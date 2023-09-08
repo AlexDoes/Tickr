@@ -4,17 +4,21 @@ function displayApp() {
     console.log("displayApp function called");
     let existingAppRoot = document.getElementById("reactAppRoot");
     if (existingAppRoot) {
-      // If the app root already exists, hide it and restore the site
-      hideApp();
-      isAppDisplayed = false;
+        hideApp();
+        isAppDisplayed = false;
     } else {
-      // Otherwise, create the app root
-      let appRoot = document.createElement("div");
-      appRoot.id = "reactAppRoot";
-      document.body.appendChild(appRoot);
-      isAppDisplayed = true;
+        let appRoot = document.createElement("div");
+        appRoot.id = "reactAppRoot";
+        document.body.appendChild(appRoot);
+        isAppDisplayed = true;
+
+        // Render the React app after creating the div
+        if (window.renderReactApp) {
+            window.renderReactApp();
+        }
     }
 }
+
 
 function hideApp() {
   let existingAppRoot = document.getElementById("reactAppRoot");
