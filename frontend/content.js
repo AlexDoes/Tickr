@@ -78,6 +78,9 @@ function hideApp() {
         document.body.style.marginTop = '0'; // Reset the body's margin-top
         adjustFixedElements(0, false); // Reset fixed elements
 
+        // Send a message to background.js to request closing the WebSocket connection
+        chrome.runtime.sendMessage({ action: "closeWebSocket" });
+
         // After the slide-out transition completes, remove the div
         setTimeout(() => {
             existingAppRoot.remove();
@@ -85,10 +88,25 @@ function hideApp() {
     }
 }
 
+
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-    if (message.action === "toggleWebSocketDiv") {
+    if (message.action === "checkDivState") {
+        let existingAppRoot = document.getElementById("reactAppRoot");
+        if (existingAppRoot) {
+            sendResponse({ divState: "displayed" });
+        } else {
+            sendResponse({ divState: "hidden" });
+        }
+    } else if (message.action === "toggleWebSocketDiv") {
         displayApp(); // Toggle the React app
-        sendResponse({ status: "App toggled successfully" });
-    } 
+
+        // Check the div's state and send it back as a response
+        let existingAppRoot = document.getElementById("reactAppRoot");
+        if (existingAppRoot) {
+            sendResponse({ status: "App toggled successfully", divState: "displayed" });
+        } else {
+            sendResponse({ status: "App toggled successfully", divState: "hidden" });
+        }
+    }
     // Note: The data update will now be handled by the React app itself.
 });
