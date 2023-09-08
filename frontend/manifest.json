@@ -3,14 +3,8 @@
   "name": "Heavenly Beauty",
   "version": "1.0",
   "description": "Heavenly Beauty is a chrome extension that will display some grid data",
-  "permissions": [
-    "activeTab",
-    "scripting",
-    "tabs"
-  ],
-  "host_permissions": [
-    "http://localhost:8080/*"
-  ],
+  "permissions": ["activeTab", "scripting", "tabs"],
+  "host_permissions": ["http://localhost:8080/*"],
   "action": {
     "default_icon": {
       "16": "grid-icon.jpeg"
@@ -21,12 +15,8 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "build/static/js/main.js"
-      ]
+      "matches": ["<all_urls>"],
+      "js": ["content.js", "build/static/js/main.js"]
     }
   ],
   "background": {
