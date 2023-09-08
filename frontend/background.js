@@ -11,27 +11,17 @@ function establishWebSocketConnection(tabId) {
     retryCount = 0; // Reset retry count on successful connection
   };
 
-  // socket.onmessage = function (event) {
-  //     const cleanData = JSON.parse(event.data);
-  //     console.log(cleanData);
-
-  //     // Send the received data to the content script
-  //     chrome.tabs.sendMessage(tabId, {
-  //         action: "updateWebSocketData",
-  //         data: cleanData,
-  //     });
-  // };
 
   socket.onmessage = function (event) {
     const cleanData = JSON.parse(event.data);
     console.log(cleanData);
 
     // Send the received data to the content script (React component)
-    chrome.tabs.sendMessage(tab.id, {
+    chrome.tabs.sendMessage(tabId, {  // <-- Use tabId here
       action: "updateWebSocketData",
       data: cleanData,
     });
-  };
+};
 
   socket.onerror = function (error) {
     console.log(`[error] ${error.message}`);
