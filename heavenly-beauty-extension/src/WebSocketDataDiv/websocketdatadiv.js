@@ -110,30 +110,22 @@ function WebSocketDataDiv() {
       // Listen for messages from the background script
       chrome.runtime.onMessage.addListener((message) => {
         if (message.action === "updateWebSocketData") {
-          // setData(message.data);
-          // console.log(typeof message.data);
           const messageTimestamp = new Date(message.data.occurredAt);
           const hours = normalizeTime(messageTimestamp.getHours());
           const minutes = normalizeTime(messageTimestamp.getMinutes());
           const seconds = normalizeTime(messageTimestamp.getSeconds());
           const formattedTimestamp = `${hours}:${minutes}:${seconds}`;
+          console.log(message.length);
+
           const messageEvents = message.data.events.map((event) => {
             return {
-              [formattedTimestamp]: event.type,
+              [formattedTimestamp]: event.type, // TIMESTAMP: EVENTTYPE
             };
           });
-          // messageQueue.enqueue(message.data.occurredAt);
+
           if (!FILTEREDEVENTTYPES.includes(message.data.events[0].type)) {
             messageQueue.enqueue(messageEvents);
           }
-          // setTimestamp((pastTimestamps) => [
-          //   ...pastTimestamps,
-          //   message.data.occurredAt,
-          // ]);
-          // setEvents((pastEvents) => ({
-          //   ...pastEvents,
-          //   [message.data.occurredAt]: message.data.events,
-          // }));
         }
       });
     }
@@ -192,7 +184,6 @@ function WebSocketDataDiv() {
   return (
     <>
       <div id="websocketDataDiv" style={divStyle}>
-        {/* {data ? JSON.stringify(data) : "WebSocket Data Will Appear Here"} */}
         {data
           ? data.map((event) => {
               return (
