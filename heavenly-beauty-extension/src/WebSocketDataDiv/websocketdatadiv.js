@@ -23,10 +23,86 @@ class Queue {
   }
 }
 
+const FILTEREDEVENTTYPES = [
+  "player-acquired-item",
+  "player-equipped-item",
+  "player-unequipped-item",
+  "player-stashed-item",
+  "player-unstashed-item",
+  "player-lost-item",
+];
+
+const SUPPORTEDEVENTTYPES = [
+  "grid-started-feed",
+  "grid-sampled-feed",
+  "grid-sampled-tournament",
+  "grid-sampled-series",
+  "grid-invalidated-series",
+  "grid-validated-series",
+  "grid-ended-feed",
+  "player-left-series",
+  "player-rejoined-series",
+  "tournament-started-series",
+  "team-picked-character",
+  "team-banned-character",
+  "series-started-game",
+  "player-acquired-item",
+  "player-equipped-item",
+  "player-unequipped-item",
+  "player-stashed-item",
+  "player-unstashed-item",
+  "player-lost-item",
+  "player-killed-player",
+  "player-multikilled-player",
+  "player-teamkilled-player",
+  "player-selfkilled-player",
+  "team-killed-player",
+  "game-killed-player",
+  "game-respawned-player",
+  "game-respawned-roshan",
+  "player-selfrevived-player",
+  "player-killed-roshan",
+  "team-killed-roshan",
+  "player-completed-increaseLevel",
+  "player-completed-slayRoshan",
+  "team-completed-slayRoshan",
+  "player-completed-destroyTower",
+  "team-completed-destroyTower",
+  "player-completed-destroyBarracksMelee",
+  "team-completed-destroyBarracksMelee",
+  "player-completed-destroyBarracksRange",
+  "player-completed-destroyAncient",
+  "team-completed-destroyBarracksRange",
+  "team-completed-destroyAncient",
+  "player-captured-outpost",
+  "team-captured-outpost",
+  "player-destroyed-tower",
+  "player-destroyed-barracksMelee",
+  "player-destroyed-barracksRange",
+  "player-destroyed-ancient",
+  "team-destroyed-tower",
+  "team-destroyed-barracksMelee",
+  "team-destroyed-barracksRange",
+  "team-destroyed-ancient",
+  "team-won-game",
+  "series-ended-game",
+  "team-won-series",
+  "tournament-ended-series",
+  "game-set-clock",
+  "game-started-clock",
+  "game-stopped-clock",
+  "game-set-respawnClock",
+  "game-started-respawnClock",
+  "game-stopped-respawnClock",
+  "series-paused-game",
+  "series-resumed-game",
+];
+
 function WebSocketDataDiv() {
   const [data, setData] = useState(null);
   const messageQueue = new Queue();
   const [timestamp, setTimestamp] = useState([]);
+  const [events, setEvents] = useState({});
 
   useEffect(() => {
     // Check if chrome and chrome.runtime are defined
@@ -35,9 +111,29 @@ function WebSocketDataDiv() {
       chrome.runtime.onMessage.addListener((message) => {
         if (message.action === "updateWebSocketData") {
           // setData(message.data);
-          console.log(typeof message.data);
-          messageQueue.enqueue(message.data.occurredAt);
-          setTimestamp([...timestamp, message.data.occurredAt]);
+          // console.log(typeof message.data);
+          const messageTimestamp = new Date(message.data.occurredAt);
+          const hours = normalizeTime(messageTimestamp.getHours());
+          const minutes = normalizeTime(messageTimestamp.getMinutes());
+          const seconds = normalizeTime(messageTimestamp.getSeconds());
+          const formattedTimestamp = `${hours}:${minutes}:${seconds}`;
+          const messageEvents = message.data.events.map((event) => {
+            return {
+              [formattedTimestamp]: event.type,
+            };
+          });
+          // messageQueue.enqueue(message.data.occurredAt);
+          if (!FILTEREDEVENTTYPES.includes(message.data.events[0].type)) {
+            messageQueue.enqueue(messageEvents);
+          }
+          // setTimestamp((pastTimestamps) => [
+          //   ...pastTimestamps,
+          //   message.data.occurredAt,
+          // ]);
+          // setEvents((pastEvents) => ({
+          //   ...pastEvents,
+          //   [message.data.occurredAt]: message.data.events,
+          // }));
         }
       });
     }
@@ -46,10 +142,26 @@ function WebSocketDataDiv() {
       if (!messageQueue.isEmpty()) {
         setData(messageQueue.dequeue());
       }
-    }, 1000);
+    }, getAverageTimeGap(timestamp) / 3);
 
     return () => clearInterval(intervalId);
   }, []);
+
+  const normalizeTime = (number) => {
+    return number < 10 ? "0" + number : number;
+  };
+
+  const getAverageTimeGap = (timestamps) => {
+    if (timestamps.length <= 1) return 1000;
+
+    let totalGap = 0;
+    for (let i = 1; i < timestamps.length; i++) {
+      totalGap +=
+        new Date(timestamps[i]).getTime() -
+        new Date(timestamps[i - 1]).getTime();
+    }
+    return totalGap / (timestamps.length - 1);
+  };
 
   const divStyle = {
     overflowY: "auto",
@@ -60,17 +172,44 @@ function WebSocketDataDiv() {
     boxSizing: "border-box",
     wordWrap: "break-word",
     wordBreak: "break-all",
+    backgroundColor: "#388087",
+    color: "#F6F6F2",
+    transition: "transform .3s ease-in-out",
+    transform: "translateX(0%)",
+  };
+
+  const secondDivStyle = {
+    zIndex: "1000",
+    position: "fixed",
+    bottom: "0",
+    left: "0",
+    width: "50%",
+    height: "50%",
+    backgroundColor: "cyan",
+    overflowY: "auto",
   };
 
   return (
-    <div id="websocketDataDiv" style={divStyle}>
-      {data ? JSON.stringify(data) : "WebSocket Data Will Appear Here"}
-      <div>
-        {timestamp.map((time) => (
-          <p>{time}</p>
-        ))}
+    <>
+      <div id="websocketDataDiv" style={divStyle}>
+        {/* {data ? JSON.stringify(data) : "WebSocket Data Will Appear Here"} */}
+        {data
+          ? data.map((event) => {
+              return (
+                <div>
+                  {Object.entries(event).map(([timestamp, eventType]) => {
+                    return (
+                      <div>
+                        {timestamp}: {eventType}
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })
+          : "WebSocket Data Will Appear Here"}
       </div>
-    </div>
+    </>
   );
 }
 
