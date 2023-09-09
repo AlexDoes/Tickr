@@ -115,17 +115,20 @@ function WebSocketDataDiv() {
           const minutes = normalizeTime(messageTimestamp.getMinutes());
           const seconds = normalizeTime(messageTimestamp.getSeconds());
           const formattedTimestamp = `${hours}:${minutes}:${seconds}`;
-          console.log(message.length);
 
           const messageEvents = message.data.events.map((event) => {
-            return {
-              [formattedTimestamp]: event.type, // TIMESTAMP: EVENTTYPE
-            };
+            const singleEvent = { [formattedTimestamp]: event.type }; // TIMESTAMP: EVENTTYPE
+            // if (!FILTEREDEVENTTYPES.includes(event.type)) {
+            // messageQueue.enqueue(singleEvent);
+            // }
+            return singleEvent;
           });
-
+          console.log(messageEvents);
+          // messageEvents.forEach((singleEvent) => {
           if (!FILTEREDEVENTTYPES.includes(message.data.events[0].type)) {
             messageQueue.enqueue(messageEvents);
           }
+          // });
         }
       });
     }
