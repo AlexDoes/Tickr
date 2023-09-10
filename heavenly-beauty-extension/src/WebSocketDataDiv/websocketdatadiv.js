@@ -160,7 +160,7 @@ function WebSocketDataDiv() {
                 const [team1, team2] = event.actor.state.teams;
                 const format = event.actor.state.format;
                 return {
-                  [formattedTimestamp]: `${team1} and ${team2} started a game in thier ${format} series`,
+                  [formattedTimestamp]: `${team1.name} and ${team2.name} started a game in thier ${format} series`,
                 };
               },
             },
@@ -201,6 +201,13 @@ function WebSocketDataDiv() {
                 return { [formattedTimestamp]: `${actor} unstashed ${target}` };
               },
             },
+            "player-lost-item": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.game.name;
+                const target = event.target.id;
+                return { [formattedTimestamp]: `${actor} lost ${target}` };
+              },
+            },
             "player-killed-player": {
               message: (event, formattedTimestamp) => {
                 const actor = event.actor.state.game.name;
@@ -232,6 +239,11 @@ function WebSocketDataDiv() {
                 return { [formattedTimestamp]: `${target} respawned` };
               },
             },
+            "game-respawned-roshan": {
+              message: (event, formattedTimestamp) => {
+                return { [formattedTimestamp]: `Roshan respawned` };
+              },
+            },
             "player-selfrevived-player": {
               message: (event, formattedTimestamp) => {
                 const actor = event.actor.state.game.name;
@@ -242,6 +254,88 @@ function WebSocketDataDiv() {
               message: (event, formattedTimestamp) => {
                 const actor = event.actor.state.game.name;
                 return { [formattedTimestamp]: `${actor} killed Roshan` };
+              },
+            },
+            "player-captured-outpost": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.game.name;
+                const target = event.target.id;
+                const side = event.target.state.side;
+                return {
+                  [formattedTimestamp]: `${actor} captured ${side} ${target}`,
+                };
+              },
+            },
+            "player-destroyed-tower": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.game.name;
+                const target = event.target.id;
+                return {
+                  [formattedTimestamp]: `${actor} destroyed ${target}`,
+                };
+              },
+            },
+            "player-destroyed-barracksMelee": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.game.name;
+                const target = event.target.id;
+                return {
+                  [formattedTimestamp]: `${actor} destroyed ${target}`,
+                };
+              },
+            },
+            "player-destroyed-barracksRange": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.game.name;
+                const target = event.target.id;
+                return {
+                  [formattedTimestamp]: `${actor} destroyed ${target}`,
+                };
+              },
+            },
+            "player-destroyed-ancient": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.game.name;
+                const target = event.target.id;
+                return {
+                  [formattedTimestamp]: `${actor} destroyed ${target}`,
+                };
+              },
+            },
+            "team-destroyed-tower": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.game.name;
+                const target = event.target.id;
+                return {
+                  [formattedTimestamp]: `${actor} destroyed ${target}`,
+                };
+              },
+            },
+            "team-destroyed-barracksMelee": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.game.name;
+                const target = event.target.id;
+                return {
+                  [formattedTimestamp]: `${actor} destroyed ${target}`,
+                };
+              },
+            },
+            "team-destroyed-barracksRange": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.game.name;
+                const target = event.target.id;
+                return {
+                  [formattedTimestamp]: `${actor} destroyed ${target}`,
+                };
+              },
+            },
+            "team-destroyed-ancient": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.game.name;
+                const target = event.target.id;
+                return {
+                  [formattedTimestamp]: `${actor} destroyed ${target}`,
+                };
               },
             },
             "player-completed-increaseLevel": {
@@ -274,27 +368,24 @@ function WebSocketDataDiv() {
             // Add other event types and their handlers here...
             default: {
               message: (event, formattedTimestamp) => {
+                console.log({ [formattedTimestamp]: event.type });
                 return { [formattedTimestamp]: event.type };
               },
             },
           };
 
           const messageEvents = message.data.events.map((event) => {
-            if (
-              event.type === "team-killed-player" ||
-              event.type === "game-killed-player"
-            ) {
-              console.log(event);
-            }
+            // if (event.type === "team-won-series") {
+            //   console.log(event);
+            // }
+
             const handler =
               eventHandlers[event.type] || eventHandlers["default"];
 
-            if (
-              event.type === "player-teamkilled-player" ||
-              event.type === "player-selfkilled-player"
-            ) {
-              console.log(handler.message(event, formattedTimestamp));
-            }
+            // if (event.type === "player-destroyed-ancient") {
+            //   console.log(handler.message(event, formattedTimestamp));
+            // }
+            // console.log(handler.message(event, formattedTimestamp));
             return handler.message(event, formattedTimestamp);
           });
 
