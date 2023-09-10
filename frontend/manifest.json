@@ -7,16 +7,18 @@
   "host_permissions": ["http://localhost:8080/*"],
   "action": {
     "default_icon": {
-      "16": "grid-icon.jpeg"
+      "32": "fav_images/favicon-32x32.png",
+      "16": "fav_images/favicon-16x16.png"
     }
   },
   "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'; connect-src ws://localhost:8080/;"
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src ws://localhost:8080/; style-src 'self' 'unsafe-inline';"
   },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content.js", "build/static/js/main.js"]
+      "js": ["content.js", "build/static/js/main.js"],
+      "css": ["build/static/css/main.css"]
     }
   ],
   "background": {
