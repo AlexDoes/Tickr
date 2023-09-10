@@ -1,12 +1,13 @@
 import "./App.css";
 import WebSocketDataDiv from "./WebSocketDataDiv/websocketdatadiv";
-import Dashboard from "./Dashboard/DashboardComponent";import DotaMapComponent from './DataVisualization/DotaMapComponent';
-import React, { useState, useEffect } from 'react';
-import Heatmap from './DataVisualization/Heatmap';
+import Dashboard from "./Dashboard/DashboardComponent";
+import DotaMapComponent from "./DataVisualization/DotaMapComponent";
+import React, { useState, useEffect } from "react";
+import Heatmap from "./DataVisualization/Heatmap";
 
 function App() {
   const [incomingEvent, setIncomingEvent] = useState(null);
-  const eventTypes = ['death', 'goal', 'assist'];
+  const eventTypes = ["death", "goal", "assist"];
 
   // useEffect(() => {
   //   const interval = setInterval(() => {
@@ -44,13 +45,13 @@ function App() {
   //     setEvent(newEvent);
   //   }, 1000);  // Generates a new event every 1 second
 
-    // Cleanup: Clear interval when component unmounts
+  // Cleanup: Clear interval when component unmounts
   //   return () => clearInterval(intervalId);
   // }, []);
 
   return (
     <>
-      <div className=" fixed w-[100vw] h-[20vh] border-2 border-green-700 z-100 overflow-visible">
+      <div className=" fixed w-[100vw] h-[20vh] border-green-700 z-100 overflow-visible sm:text-sm md:text-md lg:text-lg xl:-text-xl">
         <Dashboard />
       </div>
     </>
