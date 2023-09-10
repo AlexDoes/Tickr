@@ -40,3 +40,44 @@
     transform: rotate(360deg);
   }
 }
+
+.map-container {
+  position: relative;
+}
+
+.dota2-map, .heatmap-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 1000px;
+  max-height: 1000px;
+}
+
+.heatmap-layer {
+  pointer-events: none;
+  /* background-color: rgba(0, 0, 40, 15); */
+  opacity: .8;
+}
+
+.popup {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 5px;
+  animation: popup-animation 1.5s ease-out forwards;
+}
+
+@keyframes popup-animation {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+}
