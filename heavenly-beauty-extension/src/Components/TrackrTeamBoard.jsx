@@ -1,3 +1,4 @@
+import Heatmap from "../DataVisualization/Heatmap";
 export default function TrackrTeamBoard(props) {
   return (
     <div className="h-full w-full flex flex-row border-red-700 border-2 justify-evenly">
@@ -24,7 +25,9 @@ export default function TrackrTeamBoard(props) {
           <img src="/TeemoSquare.webp" className="w-[20px] h-[20px]" />
         </div>
       </div>
-      <div className="w-[200px] h-full border-2 border-yellow-200">HeatMap</div>
+      <div className="w-[200px] h-full border-2 border-yellow-200">
+        Heat map placeholder
+      </div>
       <div className="flex flex-col text-sm">
         <div className="text-center">Team 2</div>
         <div className="flex gap-1 mx-auto">
