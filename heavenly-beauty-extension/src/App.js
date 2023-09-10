@@ -9,19 +9,19 @@ function App() {
   const [incomingEvent, setIncomingEvent] = useState(null);
   const eventTypes = ['death', 'goal', 'assist'];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      // Simulate receiving a new event
-      const newEvent = {
-        x: Math.floor(Math.random() * 500),
-        y: Math.floor(Math.random() * 500),
-        eventType: eventTypes[Math.floor(Math.random() * eventTypes.length)]
-      };
-      setIncomingEvent(newEvent);
-    }, 1000);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     // Simulate receiving a new event
+  //     const newEvent = {
+  //       x: Math.floor(Math.random() * 1000),
+  //       y: Math.floor(Math.random() * 1000),
+  //       eventType: eventTypes[Math.floor(Math.random() * eventTypes.length)]
+  //     };
+  //     setIncomingEvent(newEvent);
+  //   }, 1000);
 
-    return () => clearInterval(interval);
-  }, []);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   const [event, setEvent] = useState(null);
 

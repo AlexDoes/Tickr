@@ -45,8 +45,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  max-width: 500px;
-  max-height: 500px;
+  max-width: 1000px;
+  max-height: 1000px;
 }
 
 .heatmap-layer {
@@ -61,7 +61,7 @@
   border: 1px solid #ccc;
   padding: 5px;
   border-radius: 5px;
-  animation: popup-animation 2s ease-out forwards;
+  animation: popup-animation 1.5s ease-out forwards;
 }
 
 @keyframes popup-animation {

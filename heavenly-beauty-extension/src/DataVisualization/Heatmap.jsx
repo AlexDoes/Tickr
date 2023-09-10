@@ -41,15 +41,15 @@ const Heatmap = ({ incomingEvent }) => {
   }, [incomingEvent]);
 
   useEffect(() => {
-    console.log(incomingEvent);
+    // console.log(incomingEvent);
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
-    const width = 500;
-    const height = 500;
+    const width = 1000;
+    const height = 1000;
     canvas.width = width;
     canvas.height = height;
 
-    const radius = 20;
+    const radius = 50;
     const colorScale = d3.scaleSequential(d3.interpolateWarm).domain([0, 2]);
 
     ctx.clearRect(0, 0, width, height);
