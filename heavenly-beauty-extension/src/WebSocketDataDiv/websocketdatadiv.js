@@ -161,11 +161,12 @@ function WebSocketDataDiv(props) {
   };
 
   const divStyle = {
-    overflowY: "auto",
+    // overflowY: "auto",
     overflowX: "hidden", // Hide horizontal overflow
     maxHeight: "100%",
     maxWidth: "100%",
     padding: "10px",
+    height: "100%",
     boxSizing: "border-box",
     wordWrap: "break-word",
     wordBreak: "break-all",
@@ -190,7 +191,6 @@ function WebSocketDataDiv(props) {
     <>
       <div
         id="websocketDataDiv"
-        style={divStyle}
         className="text-xl font-bold border-yellow-200 border-2"
       >
         {data
