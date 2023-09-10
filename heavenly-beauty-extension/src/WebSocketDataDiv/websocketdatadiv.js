@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "../App.css";
 
 class Queue {
   constructor() {
@@ -98,7 +99,8 @@ const SUPPORTEDEVENTTYPES = [
   "series-resumed-game",
 ];
 
-function WebSocketDataDiv() {
+function WebSocketDataDiv(props) {
+  const eventId = props.matchId;
   const [data, setData] = useState(null);
   const messageQueue = new Queue();
   const [timestamp, setTimestamp] = useState([]);
@@ -186,11 +188,15 @@ function WebSocketDataDiv() {
 
   return (
     <>
-      <div id="websocketDataDiv" style={divStyle}>
+      <div
+        id="websocketDataDiv"
+        style={divStyle}
+        className="text-xl font-bold border-yellow-200 border-2"
+      >
         {data
           ? data.map((event) => {
               return (
-                <div>
+                <div className="text-red-700">
                   {Object.entries(event).map(([timestamp, eventType]) => {
                     return (
                       <div>
@@ -201,7 +207,7 @@ function WebSocketDataDiv() {
                 </div>
               );
             })
-          : "WebSocket Data Will Appear Here"}
+          : `WebSocket Data Will Appear Here ${eventId}`}
       </div>
     </>
   );
