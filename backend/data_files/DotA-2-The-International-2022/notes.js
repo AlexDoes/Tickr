@@ -94,3 +94,25 @@ let supportedEventTypes = [
   "series-paused-game",
   "series-resumed-game",
 ];
+
+let gridNormalization = [
+  "player-killed-player",
+  "player-multikilled-player",
+  "player-teamkilled-player",
+  "player-selfkilled-player",
+  "team-killed-player",
+  "game-killed-player",
+  "player-selfrevived-player",
+  "player-killed-roshan",
+  "team-killed-roshan",
+  "player-captured-outpost",
+  "team-captured-outpost",
+  "player-destroyed-tower",
+  "player-destroyed-barracksMelee",
+  "player-destroyed-barracksRange",
+  "player-destroyed-ancient",
+  "team-destroyed-tower",
+  "team-destroyed-barracksMelee",
+  "team-destroyed-barracksRange",
+  "team-destroyed-ancient",
+];
