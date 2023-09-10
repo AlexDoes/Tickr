@@ -24,12 +24,27 @@ class Queue {
 }
 
 const FILTEREDEVENTTYPES = [
+  "grid-started-feed",
+  "grid-sampled-feed",
+  "grid-sampled-tournament",
+  "grid-sampled-series",
+  "grid-invalidated-series",
+  "grid-validated-series",
+  "grid-ended-feed",
   "player-acquired-item",
   "player-equipped-item",
   "player-unequipped-item",
   "player-stashed-item",
   "player-unstashed-item",
   "player-lost-item",
+  "game-set-clock",
+  "game-started-clock",
+  "game-stopped-clock",
+  "game-set-respawnClock",
+  "game-started-respawnClock",
+  "game-stopped-respawnClock",
+  "series-paused-game",
+  "series-resumed-game",
 ];
 
 const SUPPORTEDEVENTTYPES = [
@@ -116,14 +131,173 @@ function WebSocketDataDiv() {
           const seconds = normalizeTime(messageTimestamp.getSeconds());
           const formattedTimestamp = `${hours}:${minutes}:${seconds}`;
 
+          const eventHandlers = {
+            "tournament-started-series": {
+              message: (event, formattedTimestamp) => {
+                const [team1, team2] = event.actor.state.teams;
+                const format = event.actor.state.format;
+                return {
+                  [formattedTimestamp]: `${team1} and ${team2} started a ${format} series`,
+                };
+              },
+            },
+            "team-picked-character": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.name;
+                const target = event.target.id;
+                return { [formattedTimestamp]: `${actor} picked ${target}` };
+              },
+            },
+            "team-banned-character": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.name;
+                const target = event.target.id;
+                return { [formattedTimestamp]: `${actor} banned ${target}` };
+              },
+            },
+            "series-started-game": {
+              message: (event, formattedTimestamp) => {
+                const [team1, team2] = event.actor.state.teams;
+                const format = event.actor.state.format;
+                return {
+                  [formattedTimestamp]: `${team1} and ${team2} started a game in thier ${format} series`,
+                };
+              },
+            },
+            "player-acquired-item": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.game.name;
+                const target = event.target.id;
+                return { [formattedTimestamp]: `${actor} acquired ${target}` };
+              },
+            },
+            "player-equipped-item": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.game.name;
+                const target = event.target.id;
+                return { [formattedTimestamp]: `${actor} equipped ${target}` };
+              },
+            },
+            "player-unequipped-item": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.game.name;
+                const target = event.target.id;
+                return {
+                  [formattedTimestamp]: `${actor} unequipped ${target}`,
+                };
+              },
+            },
+            "player-stashed-item": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.game.name;
+                const target = event.target.id;
+                return { [formattedTimestamp]: `${actor} stashed ${target}` };
+              },
+            },
+            "player-unstashed-item": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.game.name;
+                const target = event.target.id;
+                return { [formattedTimestamp]: `${actor} unstashed ${target}` };
+              },
+            },
+            "player-killed-player": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.game.name;
+                const target = event.target.state.game.name;
+                return { [formattedTimestamp]: `${actor} killed ${target}` };
+              },
+            },
+            "player-multikilled-player": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.game.name;
+                return { [formattedTimestamp]: `${actor} got a multikill!` };
+              },
+            },
+            "player-teamkilled-player": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.game.name;
+                return { [formattedTimestamp]: `${actor} got a team kill!` };
+              },
+            },
+            "player-selfkilled-player": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.game.name;
+                return { [formattedTimestamp]: `${actor} killed themself` };
+              },
+            },
+            "game-respawned-player": {
+              message: (event, formattedTimestamp) => {
+                const target = event.target.state.game.name;
+                return { [formattedTimestamp]: `${target} respawned` };
+              },
+            },
+            "player-selfrevived-player": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.game.name;
+                return { [formattedTimestamp]: `${actor} self-revived` };
+              },
+            },
+            "player-killed-roshan": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.game.name;
+                return { [formattedTimestamp]: `${actor} killed Roshan` };
+              },
+            },
+            "player-completed-increaseLevel": {
+              message: (event, formattedTimestamp) => {
+                const actor = event.actor.state.game.name;
+                const level =
+                  event.actor.state.game.objectives[0].completionCount + 1;
+                return {
+                  [formattedTimestamp]: `${actor} leveled up to ${level}`,
+                };
+              },
+            },
+            "team-won-game": {
+              message: (event, formattedTimestamp) => {
+                const teams = event.target.state.teams;
+                let winningTeam;
+                let losingTeam;
+                if (teams[0].won) {
+                  winningTeam = teams[0];
+                  losingTeam = teams[1];
+                } else {
+                  winningTeam = teams[1];
+                  losingTeam = teams[0];
+                }
+                return {
+                  [formattedTimestamp]: `${winningTeam.name} won in thier game against ${losingTeam.name}`,
+                };
+              },
+            },
+            // Add other event types and their handlers here...
+            default: {
+              message: (event, formattedTimestamp) => {
+                return { [formattedTimestamp]: event.type };
+              },
+            },
+          };
+
           const messageEvents = message.data.events.map((event) => {
-            const singleEvent = { [formattedTimestamp]: event.type }; // TIMESTAMP: EVENTTYPE
-            // if (!FILTEREDEVENTTYPES.includes(event.type)) {
-            // messageQueue.enqueue(singleEvent);
-            // }
-            return singleEvent;
+            if (
+              event.type === "team-killed-player" ||
+              event.type === "game-killed-player"
+            ) {
+              console.log(event);
+            }
+            const handler =
+              eventHandlers[event.type] || eventHandlers["default"];
+
+            if (
+              event.type === "player-teamkilled-player" ||
+              event.type === "player-selfkilled-player"
+            ) {
+              console.log(handler.message(event, formattedTimestamp));
+            }
+            return handler.message(event, formattedTimestamp);
           });
-          console.log(messageEvents);
+
           // messageEvents.forEach((singleEvent) => {
           if (!FILTEREDEVENTTYPES.includes(message.data.events[0].type)) {
             messageQueue.enqueue(messageEvents);
