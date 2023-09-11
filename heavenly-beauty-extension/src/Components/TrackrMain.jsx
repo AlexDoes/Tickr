@@ -6,41 +6,37 @@ import { messageHandlers } from "../Resources/normalization";
 
 function parseWebSocketData(data) {
   try {
-    if (!data || !data.events || data.events.length === 0 || !data.occurredAt) {
-      return {};
-    }
+    console.log("Received WebSocket data:", data);
 
-    // console.log(data, 'before parsing!');
-    // console.log(data.events[0].type, 'action parsing!');
-    // console.log(data.occurredAt, 'occurredAt parsing!');
+    if (!data || !data.events || !Array.isArray(data.events) || data.events.length === 0 || !data.occurredAt) {
+      return { message: "Default message for missing or invalid data" };
+    }
 
     const formattedTimestamp = formatTimestamp(data.occurredAt);
     const firstEvent = data.events[0];
 
-    // Assuming `firstEvent.type` represents the event type
+    console.log("First event:", firstEvent);
+
+    if (!firstEvent || !firstEvent.type) {
+      return { message: "Default message for unhandled event type" };
+    }
+
     const eventType = firstEvent.type;
 
-    if (eventType && messageHandlers[eventType]) {
-      // console.log('hello hitting before formatted data!')
-      // Parse the data using the message handler for the event type
+    console.log("Event type:", eventType);
+
+    if (messageHandlers[eventType] !== undefined) {
       const formattedData = messageHandlers[eventType].message(firstEvent, formattedTimestamp);
-
-      // console.log(formattedData, 'formatted data after parsing!');
-
+      console.log(formattedData, 'formattedData-----------------------------------------------------')
       return formattedData;
     }
 
-    // If no specific message handler is found, return the default message
     return { message: "Default message for unhandled event type" };
   } catch (error) {
     console.error("An error occurred while parsing WebSocket data:", error);
-    return {}; // Return an empty object in case of an error
+    return { message: "Error Message" };
   }
 }
-
-
-
-
 
 function formatTimestamp(timestamp) {
   if (!timestamp) return ""; // Handle cases where timestamp is not available

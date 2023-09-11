@@ -16,13 +16,25 @@ const gridNormalizer = (event) => {
 const messageHandlers = {
   "tournament-started-series": {
     message: (event, formattedTimestamp) => {
-      const [team1, team2] = event.actor.state.teams;
-      const format = event.actor.state.format;
-      return {
-        [formattedTimestamp]: `${team1} and ${team2} started a ${format} series`,
-      };
+      const { teams, format } = event.actor.state;
+      
+      if (teams && teams.length >= 2) {
+        const [team1, team2] = teams; // Destructure the first two teams
+        
+        // Access the 'name' property within each team object
+        const team1Name = team1.name;
+        const team2Name = team2.name;
+  
+        return {
+          [formattedTimestamp]: `${team1Name} and ${team2Name} started a ${format} series`,
+        };
+      } else {
+        return {}; // Handle the case where there are not enough teams
+      }
     },
   },
+  
+  
   "team-picked-character": {
     message: (event, formattedTimestamp) => {
       const actor = event.actor.state.name;

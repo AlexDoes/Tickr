@@ -20,21 +20,17 @@ wss.on("connection", async function connection(ws, req) {
   console.log("Emitting", jsfiles[0]);
   const eventsFile = jsonlFile(jsfiles[0]);
 
-  // Control the message rate with a delay
-  const messageDelay = 9; // Adjust the delay in milliseconds as needed
-  let lastMessageTime = 0;
+  // Read and send messages from the file with a delay between events
+  const sendMessagesWithDelay = async () => {
+    eventsFile.read(async (line) => {
+      // Send the message
+      ws.send(JSON.stringify(line));
 
-  // Function to send a message with throttling
-  const sendMessageWithThrottle = (message) => {
-    const currentTime = Date.now();
-    if (currentTime - lastMessageTime >= messageDelay) {
-      ws.send(JSON.stringify(message));
-      lastMessageTime = currentTime;
-    }
+      // Introduce a delay between processing events (adjust the delay as needed)
+      await new Promise((resolve) => setTimeout(resolve, 100)); // Adjust the delay in milliseconds as needed
+    });
   };
 
-  // Read and send messages from the file with throttling
-  eventsFile.read((line) => {
-    sendMessageWithThrottle(line);
-  });
+  // Call the function to start sending messages with a delay
+  sendMessagesWithDelay();
 });
