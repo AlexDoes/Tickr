@@ -69,7 +69,7 @@ const messageHandlers = {
       const [team1, team2] = event.actor.state.teams;
       const format = event.actor.state.format;
       return {
-        [formattedTimestamp]: `${team1.name} and ${team2.name} started a game in thier ${format} series`,
+        [formattedTimestamp]: `${team1.name} and ${team2.name} started a game in their ${format} series`,
       };
     },
   },
@@ -95,7 +95,7 @@ const messageHandlers = {
   "player-selfkilled-player": {
     message: (event, formattedTimestamp) => {
       const actor = event.actor.state.game.name;
-      return { [formattedTimestamp]: `${actor} killed themself` };
+      return { [formattedTimestamp]: `${actor} denied` };
     },
   },
   "game-respawned-player": {

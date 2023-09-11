@@ -1,44 +1,47 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 function WebSocketDataDiv(props) {
   const { websocketData } = props;
-  const [lastValidData, setLastValidData] = useState(null);
-
-  // Check if the data has an eventType
-  const hasEventType = websocketData['message'] !== "Default message for unhandled event type";
+  const [messages, setMessages] = useState([]); // initialize with an empty array
+  const messagesContainerRef = useRef(null);
 
   useEffect(() => {
-    // If the data has an eventType, update the lastValidData state
-    if (hasEventType) {
-      setLastValidData(websocketData);
-    }
-  }, [hasEventType, websocketData]);
+    // Check if websocketData has content before updating messages
+    if (websocketData && websocketData.message !== 'Default message for missing or invalid data') { // Ensure there's a valid message
+      // Add the new websocketData to the messages array
+      setMessages(prevMessages => [...prevMessages, websocketData]);
 
-  console.log(websocketData, 'websockdata withint websocket div')
+      // Scroll to the end of the container
+      if (messagesContainerRef.current) {
+        messagesContainerRef.current.scrollLeft = messagesContainerRef.current.scrollWidth;
+      }
+    }
+  }, [websocketData]);
 
   return (
-    <div className="text-xl font-bold border-yellow-200 border-2 overflow-x-auto whitespace-nowrap">
-      {hasEventType ? (
-        <div className="text-red-700 inline-block mr-4">
-          {Object.keys(websocketData).map((key) => (
-            <div key={key}>
-              {key}: {websocketData[key]}
-            </div>
-          ))}
-        </div>
-      ) : lastValidData ? (
-        <div className="text-red-700 inline-block mr-4">
-          {Object.keys(lastValidData).map((key) => (
-            <div key={key}>
-              {key}: {lastValidData[key]}
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div>WebSocket Data Will Appear Here</div>
-      )}
+    <div className="text-xl font-bold border-yellow-200 border-2 overflow-hidden">
+      <div
+        ref={messagesContainerRef}
+        className="text-red-700 whitespace-nowrap flex overflow-x-hidden animate-scroll-left"
+        style={{
+          marginLeft: "-10px", // Add margin to the left
+          marginRight: "-10px", // Add margin to the right
+        }}
+      >
+        {messages.map((message, index) => (
+          <div key={index} className="mr-4" style={{ margin: "0 20px" }}>
+            {/* Add margin to each message */}
+            {Object.keys(message).map((key) => (
+              <div key={key}>
+                {key}: {message[key]}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
+
 
 export default WebSocketDataDiv;
