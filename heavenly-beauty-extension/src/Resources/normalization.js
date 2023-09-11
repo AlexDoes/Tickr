@@ -255,4 +255,16 @@ const eventHandlers = {
   },
 };
 
-export { eventHandlers, gridNormalizer };
+const stateNormalizer = (event) => {
+  const game = event.seriesState.games[games.length - 1];
+  const teams = event.seriesState.games;
+  return {
+    clock: {
+      ticking: game.clock.ticking,
+      currentSeconds: game.clock.currentSeconds,
+    },
+    teams: {},
+  };
+};
+
+export { eventHandlers, gridNormalizer, stateNormalizer };
