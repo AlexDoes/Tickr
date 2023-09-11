@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
- 
+
+const normalizeCoordinate = (value, inMin, inMax, outMin, outMax) => {
+  return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
+};
 
 const calculateIntensity = (x, y, events, radius) => {
   let intensity = 0;
@@ -19,29 +22,32 @@ const Heatmap = ({ incomingEvent }) => {
   const canvasRef = useRef(null);
   const [events, setEvents] = useState([]);
   const [popups, setPopups] = useState([]);
-  
+
   useEffect(() => {
     if (incomingEvent) {
-      setEvents(prevEvents => [...prevEvents, incomingEvent]);
+      // Normalize coordinates
+      const normalizedX = normalizeCoordinate(incomingEvent.x, -8000, 8000, 0, 1000);
+      const normalizedY = normalizeCoordinate(incomingEvent.y, -8000, 8000, 0, 1000);
+
+      setEvents(prevEvents => [...prevEvents, { ...incomingEvent, x: normalizedX, y: normalizedY }]);
 
       setPopups(prevPopups => [
         ...prevPopups,
         {
-          x: incomingEvent.x,
-          y: incomingEvent.y,
+          x: normalizedX,
+          y: normalizedY,
           eventType: incomingEvent.eventType,
           timestamp: Date.now(),
         }
       ]);
 
       setTimeout(() => {
-        setPopups(prevPopups => prevPopups.filter(popup => popup.timestamp !== incomingEvent.timestamp));
+        setPopups(prevPopups => prevPopups.filter(popup => Date.now() - popup.timestamp >= 2000));
       }, 2000);
     }
   }, [incomingEvent]);
 
   useEffect(() => {
-    // console.log(incomingEvent);
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     const width = 1000;
@@ -65,22 +71,22 @@ const Heatmap = ({ incomingEvent }) => {
   }, [events]);
 
   return (
-    <div className="map-container">
-    <img src="dotaMap.jpg" alt="Dota 2 Map" className="dota2-map" />
-    <canvas ref={canvasRef} className="heatmap-layer"></canvas>
-    {popups.map((popup, index) => (
-      <div
-        key={index}
-        className="popup"
-        style={{
-          left: `${popup.x}px`,
-          top: `${popup.y}px`,
-        }}
-      >
-        {popup.eventType}
-      </div>
-    ))}
-  </div>
+    <div className="map-container w-full h-full  min-w-[200px] min-h-[200px]">
+      <img src="https://private-user-images.githubusercontent.com/91306408/266902749-81d2faa9-f0cb-4a5d-b095-fd3b6fda51ae.jpg?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTQ0NTkxODQsIm5iZiI6MTY5NDQ1ODg4NCwicGF0aCI6Ii85MTMwNjQwOC8yNjY5MDI3NDktODFkMmZhYTktZjBjYi00YTVkLWIwOTUtZmQzYjZmZGE1MWFlLmpwZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzA5MTElMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwOTExVDE5MDEyNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTdiZWFhMzY3NWU2OWQ0ZjI5ZjZkNTkxZDQ2MmVkYTQzYTRlODdlNDAxY2VjNDQzNDhiZGNlNDAxYzNkMmNkNDkmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.XksyyDYhCZZDSJGCTD0pf7XVpWDWUSg7kQjdDiJHRRE" alt="Dota 2 Map" className="dota2-map w-full h-full  min-w-[200px] min-h-[200px]" />
+      <canvas ref={canvasRef} className="heatmap-layer w-full h-full min-w-[200px] min-h-[200px]"></canvas>
+      {/* {popups.map((popup, index) => (
+        <div
+          key={index}
+          className="popup"
+          style={{
+            left: `${popup.x}px`,
+            top: `${popup.y}px`,
+          }}
+        >
+          {popup.eventType}
+        </div>
+      ))} */}
+    </div>
   );
 };
 
