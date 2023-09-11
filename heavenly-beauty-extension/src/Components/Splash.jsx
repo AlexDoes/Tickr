@@ -3,11 +3,11 @@ import { useState } from "react";
 import Dropdown from "react-dropdown";
 export default function Splash(props) {
   const selectGame = props.function;
-  const [selectedMatch, setSelectedMatch] = useState(2432453);
+  const [selectedMatch, setSelectedMatch] = useState(null);
   let matchMap = {
     2432453: "Dota2 2022 Finals",
-    2364966: "Semifinals Upper Bracket",
-    2432302: "Semifinals Lower Bracket",
+    2364966: "Dota2 2022 Semifinals Upper Bracket",
+    2432302: "Dota2 2022 Semifinals Lower Bracket",
   };
   const [isOpen, setIsOpen] = useState(false);
 
@@ -49,15 +49,42 @@ export default function Splash(props) {
           </div>
         </div>
       </div>
-      <div className="text-center w-1/4 flex justify-center gap-4 items-center border-yellow-100">
+      <div className="text-center w-1/4 flex justify-center gap-4 items-center border-yellow-100 h-full">
         {/* <ul>
           <li>Finals</li>
           <li>Semifinals Upper Bracket</li>
           <li>Semifinals Lower Bracket</li>
         </ul> */}
         {/* will fix later */}
-        <div className="w-1/2 bg-slate-800 h-1/4 text-md text-emerald-400 rounded-md cursor-pointer hover:text-[#f5dddd]">
-          <Dropdown
+        <div className="w-full border-2 relative bg-slate-800 text-md text-emerald-400 rounded-md cursor-pointer ">
+          <button onClick={() => setIsOpen(!isOpen)} className="w-full h-full">
+            {selectedMatch ? matchMap[selectedMatch] : "Select a game"}
+          </button>
+
+          {isOpen && (
+            <ul className="dropdown-menu absolute flex flex-col items-start border-2 bg-slate-700 text-sm">
+              {Object.values(matchMap)
+                .sort((a, b) => a[0] - b[0])
+                .map((match) => (
+                  <li
+                    className="cursor-pointer hover:bg-slate-800 w-full items-start text-start"
+                    key={match}
+                    onClick={() => {
+                      let key = Object.keys(matchMap).find(
+                        (key) => matchMap[key] === match
+                      );
+                      setSelectedMatch(key);
+                      setIsOpen(false);
+                    }}
+                  >
+                    {match}
+                  </li>
+                ))}
+            </ul>
+          )}
+        </div>
+        {/* <div className="w-1/2 bg-slate-800 text-md text-emerald-400 rounded-md cursor-pointer hover:text-[#f5dddd]"> */}
+        {/* <Dropdown
             className="relative flex flex-col items-center justify-center w-full h-full"
             options={Object.values(matchMap)}
             onChange={(e) => {
@@ -67,9 +94,9 @@ export default function Splash(props) {
               setSelectedMatch(key);
             }}
             placeholder="Select a match"
-          />
-        </div>
-        <div className="h-1/4">
+          /> */}
+        {/* </div> */}
+        <div className="h-1/4 w-full">
           <button
             className="bg-gradient-to-l hover:from-[#8FFFC3] hover:to-[#015f2d] text-[#22276b] px-4 py-2 rounded-md group h-full from-[#ef6969] to-[#800e0e] ease-in-out duration-1000 accent-lime-500"
             onClick={() => selectGame(selectedMatch)}
