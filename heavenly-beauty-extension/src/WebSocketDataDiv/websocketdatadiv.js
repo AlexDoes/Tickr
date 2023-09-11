@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { eventHandlers } from "../Resources/normalization";
 import "../App.css";
 
 class Queue {
@@ -25,12 +26,27 @@ class Queue {
 }
 
 const FILTEREDEVENTTYPES = [
+  "grid-started-feed",
+  "grid-sampled-feed",
+  "grid-sampled-tournament",
+  "grid-sampled-series",
+  "grid-invalidated-series",
+  "grid-validated-series",
+  "grid-ended-feed",
   "player-acquired-item",
   "player-equipped-item",
   "player-unequipped-item",
   "player-stashed-item",
   "player-unstashed-item",
   "player-lost-item",
+  "game-set-clock",
+  "game-started-clock",
+  "game-stopped-clock",
+  "game-set-respawnClock",
+  "game-started-respawnClock",
+  "game-stopped-respawnClock",
+  "series-paused-game",
+  "series-resumed-game",
 ];
 
 const SUPPORTEDEVENTTYPES = [
@@ -119,13 +135,17 @@ function WebSocketDataDiv(props) {
           const formattedTimestamp = `${hours}:${minutes}:${seconds}`;
 
           const messageEvents = message.data.events.map((event) => {
-            const singleEvent = { [formattedTimestamp]: event.type }; // TIMESTAMP: EVENTTYPE
-            // if (!FILTEREDEVENTTYPES.includes(event.type)) {
-            // messageQueue.enqueue(singleEvent);
-            // }
-            return singleEvent;
+            if (gridNormalization[event.type] === 0) {
+              console.log(event);
+              gridNormalization[event.type] = 1;
+            }
+
+            const handler =
+              eventHandlers[event.type] || eventHandlers["default"];
+
+            return handler.message(event, formattedTimestamp);
           });
-          console.log(messageEvents);
+
           // messageEvents.forEach((singleEvent) => {
           if (!FILTEREDEVENTTYPES.includes(message.data.events[0].type)) {
             messageQueue.enqueue(messageEvents);
