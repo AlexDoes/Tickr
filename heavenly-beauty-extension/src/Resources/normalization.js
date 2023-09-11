@@ -16,16 +16,16 @@ const gridNormalizer = (event) => {
 const messageHandlers = {
   "tournament-started-series": {
     message: (event, formattedTimestamp) => {
-      console.log(event, "event inside messageHandler---------------------------------------")
+      // console.log(event, "event inside messageHandler---------------------------------------")
       const { teams, format } = event.target.state; // Access properties within target.state
-  
+
       if (teams && teams.length >= 2) {
         const [team1, team2] = teams; // Destructure the first two teams
-  
+
         // Access the 'name' property within each team object
         const team1Name = team1.name;
         const team2Name = team2.name;
-  
+
         return {
           [formattedTimestamp]: `${team1Name} and ${team2Name} started a ${format} series`,
         };
@@ -49,7 +49,7 @@ const messageHandlers = {
       return { [formattedTimestamp]: `${actor} picked ${target}` };
     },
   },
-  
+
   "player-equipped-item": {
     message: (event, formattedTimestamp) => {
       const actor = event.actor.state.name; // This will be "Puppey"
@@ -197,16 +197,18 @@ const messageHandlers = {
   },
 };
 
-const stateNormalizer = (event, formattedTimestamp) => {
+const stateNormalizer = (event) => {
+  console.log(event);
   const games = event.seriesState.games;
   const game = games[games.length - 1];
   const teams = game.teams;
-  for (const team in teams) {
+  const normalizedTeams = [];
+  for (const team of teams) {
     const players = [];
-    for (const player in teams.players) {
+    for (const player of team.players) {
       const playerObj = {
-        alive: player.alive,
-        character: player.character.name,
+        // alive: player.alive,
+        // character: player.character.name,
         deaths: player.deaths,
         items: [...player.items],
         assists: player.killAssistsGiven,
@@ -220,24 +222,22 @@ const stateNormalizer = (event, formattedTimestamp) => {
     }
     const obj = {
       name: team.name,
+      side: team.side,
       kills: team.kills,
       deaths: team.deaths,
       assists: team.killAssistsReceived,
       money: team.money,
       players: players,
     };
-    teams.push(obj);
+    normalizedTeams.push(obj);
   }
 
   return {
-    message:
-      messageHandlers[event.type].message(event, formattedTimestamp) ||
-      messageHandlers["default"].message(event, formattedTimestamp),
     clock: {
       ticking: game.clock.ticking,
       currentSeconds: game.clock.currentSeconds,
     },
-    teams: teams,
+    teams: normalizedTeams,
   };
 };
 

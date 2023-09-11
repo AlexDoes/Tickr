@@ -5,7 +5,8 @@ function WebSocketDataDiv(props) {
   const [lastValidData, setLastValidData] = useState(null);
 
   // Check if the data has an eventType
-  const hasEventType = websocketData['message'] !== "Default message for unhandled event type";
+  const hasEventType =
+    websocketData["message"] !== "Default message for unhandled event type";
 
   useEffect(() => {
     // If the data has an eventType, update the lastValidData state
@@ -14,7 +15,7 @@ function WebSocketDataDiv(props) {
     }
   }, [hasEventType, websocketData]);
 
-  console.log(websocketData, 'websockdata withint websocket div')
+  // console.log(websocketData, 'websockdata withint websocket div')
 
   return (
     <div className="text-xl font-bold border-yellow-200 border-2 overflow-x-auto whitespace-nowrap">
