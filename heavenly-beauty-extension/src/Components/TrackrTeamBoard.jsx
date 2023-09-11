@@ -13,7 +13,7 @@ export default function TrackrTeamBoard(props) {
   // console.log("----------------------------------", data);
   const websocketData = props.websocketData; 
 
-  console.log(websocketData, '---------------------------------------');
+  // console.log(websocketData, '---------------------------------------');
 
   return (
     <div className="h-full w-full flex flex-row border-red-700 justify-evenly xs:text-sm lg:text-lg xl:text-xl relative">

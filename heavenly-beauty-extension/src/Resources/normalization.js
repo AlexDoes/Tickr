@@ -242,4 +242,4 @@ const stateNormalizer = (event, formattedTimestamp) => {
 //   }
 // ]
 
-export { gridNormalizer, stateNormalizer };
+export { gridNormalizer, stateNormalizer, messageHandlers };
