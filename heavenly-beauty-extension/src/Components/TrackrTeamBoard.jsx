@@ -1,5 +1,12 @@
 import Heatmap from "../DataVisualization/Heatmap";
+import { useWebSocketData } from "../WebSocketDataDiv/websockethook.js"; // Import the custom hook
+
+
 export default function TrackrTeamBoard(props) {
+
+  const data = useWebSocketData(); // Use the custom hook to fetch WebSocket data
+
+
   return (
     <div className="h-full w-full flex flex-row border-red-700 justify-evenly xs:text-sm lg:text-lg xl:text-xl relative">
       <div className="flex flex-col xs:text-[.5rem] lg:text-[1rem] xl:text-[1rem] w-2/8 h-full justify-evenly">
