@@ -158,6 +158,9 @@ export function useWebSocketData() {
             //   messageHandler.message(event, formattedTimestamp),
             //   stateHandler,
             // ];
+
+            // console.log(stateNormalizer(event, formattedTimestamp));
+
             return stateNormalizer(event, formattedTimestamp);
           });
 

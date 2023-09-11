@@ -174,9 +174,10 @@ const stateNormalizer = (event, formattedTimestamp) => {
   const games = event.seriesState.games;
   const game = games[games.length - 1];
   const teams = game.teams;
-  for (const team in teams) {
+  const normalizedTeams = [];
+  for (const team of teams) {
     const players = [];
-    for (const player in teams.players) {
+    for (const player of team.players) {
       const playerObj = {
         alive: player.alive,
         character: player.character.name,
@@ -199,7 +200,7 @@ const stateNormalizer = (event, formattedTimestamp) => {
       money: team.money,
       players: players,
     };
-    teams.push(obj);
+    normalizedTeams.push(obj);
   }
 
   return {
@@ -210,7 +211,7 @@ const stateNormalizer = (event, formattedTimestamp) => {
       ticking: game.clock.ticking,
       currentSeconds: game.clock.currentSeconds,
     },
-    teams: teams,
+    teams: normalizedTeams,
   };
 };
 
