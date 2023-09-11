@@ -5,7 +5,7 @@ import TrackrTeamBoard from "./TrackrTeamBoard";
 export default function TrackrMain(props) {
   return (
     <div className="h-full w-full flex flex-col overflow-visible">
-      <TrackrTeamBoard />
+      <TrackrTeamBoard exit={props.handleExit} />
       <WebSocketDataDiv matchId={props.eventId} />
     </div>
   );
