@@ -265,7 +265,7 @@ const stateNormalizer = (event) => {
         alive: player.alive,
         character: player.character.name,
         deaths: player.deaths,
-        items: player.items,
+        items: [...player.items],
         assists: player.killAssistsGiven,
         kills: player.kills,
         money: player.money,
@@ -294,5 +294,33 @@ const stateNormalizer = (event) => {
     teams: teams,
   };
 };
+
+// teams: [
+//   {
+//     name,
+//     kills,
+//     deaths,
+//     assists,
+//     money,
+//     players: [
+//       {
+//         alive,
+//         character,
+//         deaths,
+//         items: [{
+//           equipped,
+//           id,
+//           stashed
+//         }],
+//         assists,
+//         kills,
+//         money,
+//         netWorth,
+//         name,
+//         position,
+//       }
+//     ]
+//   }
+// ]
 
 export { eventHandlers, gridNormalizer, stateNormalizer };
