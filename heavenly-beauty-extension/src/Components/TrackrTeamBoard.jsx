@@ -1,11 +1,13 @@
 import Heatmap from "../DataVisualization/Heatmap";
-import { stateNormalizer } from "../Resources/normalization";
-import TrackrTeamBoardCard from "./TrackrTeamBoardCard";
+import { useWebSocketData } from "../WebSocketDataDiv/websockethook.js"; // Import the custom hook
+
 
 export default function TrackrTeamBoard(props) {
   const [team1, team2] = props.teams
   const [player1, player2, player3, player4, player5] = team1
   const [player6, player7, player8, player9, player10] = team2
+
+  const data = useWebSocketData(); // Use the custom hook to fetch WebSocket data
 
   return (
     <div className="h-full w-full flex flex-row border-red-700 justify-evenly xs:text-sm lg:text-lg xl:text-xl relative">
