@@ -6,23 +6,39 @@ function WebSocketDataDiv(props) {
   const messagesContainerRef = useRef(null);
 
   useEffect(() => {
-    // Check if websocketData has content and is not one of the unwanted messages
-    if (websocketData && 
+    if (websocketData &&
         websocketData.message !== 'Default message for missing or invalid data' &&
         websocketData.message !== 'Starting ticker') {
 
-      // Add the new websocketData to the messages array
-      setMessages(prevMessages => [...prevMessages, websocketData]);
+        setMessages(prevMessages => [...prevMessages, websocketData]);
 
-      // Smoothly scroll to the end of the container
-      if (messagesContainerRef.current) {
-          messagesContainerRef.current.scrollTo({
-              left: messagesContainerRef.current.scrollWidth,
-              behavior: "smooth"
-          });
-      }
+        if (messagesContainerRef.current) {
+            const element = messagesContainerRef.current;
+            const targetScroll = element.scrollWidth;
+            const speed = 140; // pixels per second
+            const totalDistance = targetScroll - element.scrollLeft;
+            const duration = totalDistance / speed * 1000; // Calculate how long it should take given the speed
+            const start = performance.now();
+            const startScroll = element.scrollLeft;
+
+            function animate(time) {
+                const timeFraction = (time - start) / duration;
+                if (timeFraction > 1) return;
+
+                const progress = timeFraction;
+                const scrollAmount = progress * totalDistance;
+                
+                element.scrollLeft = startScroll + scrollAmount;
+
+                requestAnimationFrame(animate);
+            }
+
+            requestAnimationFrame(animate);
+        }
     }
 }, [websocketData]);
+
+
 
 
 
