@@ -10,7 +10,7 @@ export default function TrackrTeamBoard(props) {
 
   const data = useWebSocketData(); // Use the custom hook to fetch WebSocket data
 
-  console.log("----------------------------------", data);
+  // console.log("----------------------------------", data);
 
   return (
     <div className="h-full w-full flex flex-row border-red-700 justify-evenly xs:text-sm lg:text-lg xl:text-xl relative">

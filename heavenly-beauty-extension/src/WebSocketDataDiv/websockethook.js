@@ -145,11 +145,13 @@ export function useWebSocketData() {
     if (typeof chrome !== "undefined" && chrome.runtime) {
       // Listen for messages from the background script
       const messageListener = (message) => {
+        console.log("message.action---------", message.action);
         if (message.action === "updateWebSocketData") {
           const messageTimestamp = new Date(message.data.occurredAt);
           const formattedTimestamp = formatTimestamp(messageTimestamp);
 
           const messageEvents = message.data.events.map((event) => {
+            console.log("event---------------", event);
             // const messageHandler =
             //   eventHandlers[event.type] || eventHandlers["default"];
             // const stateHandler = stateNormalizer(event);
@@ -165,8 +167,9 @@ export function useWebSocketData() {
           });
 
           // if (MESSAGEEVENTS.includes(message.data.events[0].type)) {
+          // console.log(messageEvents);
           messageQueue.enqueue(messageEvents);
-          setTimestamp((prevTimestamp) => [...prevTimestamp, messageTimestamp]);
+          // setTimestamp((prevTimestamp) => [...prevTimestamp, messageTimestamp]);
           // }
         }
       };

@@ -5,6 +5,8 @@ function WebSocketDataDiv(props) {
   const eventId = props.matchId;
   const data = useWebSocketData(); // Use the custom hook to fetch WebSocket data
 
+  // console.log("websocket data ---------------------", data);
+
   return (
     <>
       {/* <div
