@@ -14,12 +14,16 @@ function WebSocketDataDiv(props) {
       // Add the new websocketData to the messages array
       setMessages(prevMessages => [...prevMessages, websocketData]);
 
-      // Scroll to the end of the container
+      // Smoothly scroll to the end of the container
       if (messagesContainerRef.current) {
-        messagesContainerRef.current.scrollLeft = messagesContainerRef.current.scrollWidth;
+          messagesContainerRef.current.scrollTo({
+              left: messagesContainerRef.current.scrollWidth,
+              behavior: "smooth"
+          });
       }
     }
 }, [websocketData]);
+
 
 
   return (
