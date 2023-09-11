@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { eventHandlers } from "../Resources/normalization";
+import "../App.css";
 
 class Queue {
   constructor() {
@@ -114,29 +115,8 @@ const SUPPORTEDEVENTTYPES = [
   "series-resumed-game",
 ];
 
-let gridNormalization = {
-  "player-killed-player": 0,
-  "player-multikilled-player": 0,
-  "player-teamkilled-player": 0,
-  "player-selfkilled-player": 0,
-  "team-killed-player": 0,
-  "game-killed-player": 0,
-  "player-selfrevived-player": 0,
-  "player-killed-roshan": 0,
-  "team-killed-roshan": 0,
-  "player-captured-outpost": 0,
-  "team-captured-outpost": 0,
-  "player-destroyed-tower": 0,
-  "player-destroyed-barracksMelee": 0,
-  "player-destroyed-barracksRange": 0,
-  "player-destroyed-ancient": 0,
-  "team-destroyed-tower": 0,
-  "team-destroyed-barracksMelee": 0,
-  "team-destroyed-barracksRange": 0,
-  "team-destroyed-ancient": 0,
-};
-
-function WebSocketDataDiv() {
+function WebSocketDataDiv(props) {
+  const eventId = props.matchId;
   const [data, setData] = useState(null);
   const messageQueue = new Queue();
   const [timestamp, setTimestamp] = useState([]);
@@ -201,11 +181,12 @@ function WebSocketDataDiv() {
   };
 
   const divStyle = {
-    overflowY: "auto",
+    // overflowY: "auto",
     overflowX: "hidden", // Hide horizontal overflow
     maxHeight: "100%",
     maxWidth: "100%",
     padding: "10px",
+    height: "100%",
     boxSizing: "border-box",
     wordWrap: "break-word",
     wordBreak: "break-all",
@@ -228,11 +209,14 @@ function WebSocketDataDiv() {
 
   return (
     <>
-      <div id="websocketDataDiv" style={divStyle}>
+      <div
+        id="websocketDataDiv"
+        className="text-xl font-bold border-yellow-200 border-2"
+      >
         {data
           ? data.map((event) => {
               return (
-                <div>
+                <div className="text-red-700">
                   {Object.entries(event).map(([timestamp, eventType]) => {
                     return (
                       <div>
@@ -243,7 +227,7 @@ function WebSocketDataDiv() {
                 </div>
               );
             })
-          : "WebSocket Data Will Appear Here"}
+          : `WebSocket Data Will Appear Here ${eventId}`}
       </div>
     </>
   );
