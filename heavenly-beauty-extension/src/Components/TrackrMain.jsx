@@ -1,8 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import WebSocketComponent from "../WebSocketDataDiv/websocketcomponent";
 import WebSocketDataDiv from "../WebSocketDataDiv/websocketdatadiv";
 import TrackrTeamBoard from "./TrackrTeamBoard";
 
 export default function TrackrMain(props) {
+  const [websocketData, setWebSocketData] = useState(null);
+  const [showWebSocket, setShowWebSocket] = useState(true);
+
+  const updateWebSocketData = (data) => {
+     setWebSocketData(data);
+  };
+
+  const toggleWebSocketVisibility = () => {
+     setShowWebSocket(prevState => !prevState);
+  };
+
+  useEffect(() => {
+    function handleHide() {
+       setShowWebSocket(false); 
+    }
+ 
+    window.addEventListener('hideWebSocketComponent', handleHide);
+    return () => window.removeEventListener('hideWebSocketComponent', handleHide);
+ }, []);
+
   const teams = [
     {
       kills: 52,
@@ -104,8 +125,9 @@ export default function TrackrMain(props) {
 
   return (
     <div className="h-full w-full flex flex-col overflow-visible">
-      <TrackrTeamBoard exit={props.handleExit} teams={teams} />
-      <WebSocketDataDiv matchId={props.eventId} />
+      {showWebSocket && <WebSocketComponent onDataReceived={updateWebSocketData} />}
+      <TrackrTeamBoard exit={props.handleExit} teams={teams} websocketData={websocketData}/>
+      <WebSocketDataDiv matchId={props.eventId} websocketData={websocketData} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import Heatmap from "../DataVisualization/Heatmap";
 import TrackrTeamBoardCard from "./TrackrTeamBoardCard";
-import { useWebSocketData } from "../WebSocketDataDiv/websockethook.js"; // Import the custom hook
+// import { useWebSocketData } from "../WebSocketDataDiv/websockethook.js"; // Import the custom hook
 import { useEffect } from "react";
 
 export default function TrackrTeamBoard(props) {
@@ -8,13 +8,16 @@ export default function TrackrTeamBoard(props) {
   const [player1, player2, player3, player4, player5] = team1.players;
   const [player6, player7, player8, player9, player10] = team2.players;
 
-  const data = useWebSocketData(); // Use the custom hook to fetch WebSocket data
+  // const data = useWebSocketData(); // Use the custom hook to fetch WebSocket data
 
-  console.log("----------------------------------", data);
+  // console.log("----------------------------------", data);
+  const websocketData = props.websocketData; 
+
+  console.log(websocketData, '---------------------------------------');
 
   return (
     <div className="h-full w-full flex flex-row border-red-700 justify-evenly xs:text-sm lg:text-lg xl:text-xl relative">
-      <div className="flex flex-col xs:text-[.5rem] lg:text-[1rem] xl:text-[1rem] w-2/8 h-full justify-evenly">
+      {/* <div className="flex flex-col xs:text-[.5rem] lg:text-[1rem] xl:text-[1rem] w-2/8 h-full justify-evenly">
         <div className="text-center font-bold text-[#37ff44]">Radiant</div>
         <TrackrTeamBoardCard player={player1} background={true} />
         <TrackrTeamBoardCard player={player2} background={false} />
@@ -61,7 +64,7 @@ export default function TrackrTeamBoard(props) {
         onClick={props.exit}
       >
         x
-      </button>
+      </button> */}
     </div>
   );
 }

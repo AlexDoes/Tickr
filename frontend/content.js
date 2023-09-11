@@ -81,9 +81,10 @@ function hideApp() {
     document.body.style.marginTop = "0"; // Reset the body's margin-top
     adjustFixedElements(0, false); // Reset fixed elements
 
-    // Send a message to background.js to request closing the WebSocket connection
-    chrome.runtime.sendMessage({ action: "closeWebSocket" });
-
+  // Dispatch custom event to signal React
+  let event = new Event('hideWebSocketComponent');
+  window.dispatchEvent(event);
+  
     // After the slide-out transition completes, remove the div
     setTimeout(() => {
       existingAppRoot.remove();
