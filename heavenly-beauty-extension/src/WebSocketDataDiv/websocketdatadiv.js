@@ -14,6 +14,8 @@ function WebSocketDataDiv(props) {
     }
   }, [hasEventType, websocketData]);
 
+  console.log(websocketData, 'websockdata withint websocket div')
+
   return (
     <div className="text-xl font-bold border-yellow-200 border-2 overflow-x-auto whitespace-nowrap">
       {hasEventType ? (

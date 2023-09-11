@@ -16,11 +16,12 @@ const gridNormalizer = (event) => {
 const messageHandlers = {
   "tournament-started-series": {
     message: (event, formattedTimestamp) => {
-      const { teams, format } = event.actor.state;
-      
+      console.log(event, "event inside messageHandler---------------------------------------")
+      const { teams, format } = event.target.state; // Access properties within target.state
+  
       if (teams && teams.length >= 2) {
         const [team1, team2] = teams; // Destructure the first two teams
-        
+  
         // Access the 'name' property within each team object
         const team1Name = team1.name;
         const team2Name = team2.name;
@@ -33,13 +34,27 @@ const messageHandlers = {
       }
     },
   },
-  
-  
+
   "team-picked-character": {
     message: (event, formattedTimestamp) => {
       const actor = event.actor.state.name;
       const target = event.target.id;
       return { [formattedTimestamp]: `${actor} picked ${target}` };
+    },
+  },
+  "player-acquired-item": {
+    message: (event, formattedTimestamp) => {
+      const actor = event.actor.state.name; // This will be "Puppey"
+      const target = event.target.id; // This will be "item_enchanted_mango"
+      return { [formattedTimestamp]: `${actor} picked ${target}` };
+    },
+  },
+  
+  "player-equipped-item": {
+    message: (event, formattedTimestamp) => {
+      const actor = event.actor.state.name; // This will be "Puppey"
+      const target = event.target.id; // This will be "item_enchanted_mango"
+      return { [formattedTimestamp]: `${actor} equipped ${target}` };
     },
   },
   "team-banned-character": {
