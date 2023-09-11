@@ -46,50 +46,6 @@ const eventHandlers = {
       };
     },
   },
-  "player-acquired-item": {
-    message: (event, formattedTimestamp) => {
-      const actor = event.actor.state.game.name;
-      const target = event.target.id;
-      return { [formattedTimestamp]: `${actor} acquired ${target}` };
-    },
-  },
-  "player-equipped-item": {
-    message: (event, formattedTimestamp) => {
-      const actor = event.actor.state.game.name;
-      const target = event.target.id;
-      return { [formattedTimestamp]: `${actor} equipped ${target}` };
-    },
-  },
-  "player-unequipped-item": {
-    message: (event, formattedTimestamp) => {
-      const actor = event.actor.state.game.name;
-      const target = event.target.id;
-      return {
-        [formattedTimestamp]: `${actor} unequipped ${target}`,
-      };
-    },
-  },
-  "player-stashed-item": {
-    message: (event, formattedTimestamp) => {
-      const actor = event.actor.state.game.name;
-      const target = event.target.id;
-      return { [formattedTimestamp]: `${actor} stashed ${target}` };
-    },
-  },
-  "player-unstashed-item": {
-    message: (event, formattedTimestamp) => {
-      const actor = event.actor.state.game.name;
-      const target = event.target.id;
-      return { [formattedTimestamp]: `${actor} unstashed ${target}` };
-    },
-  },
-  "player-lost-item": {
-    message: (event, formattedTimestamp) => {
-      const actor = event.actor.state.game.name;
-      const target = event.target.id;
-      return { [formattedTimestamp]: `${actor} lost ${target}` };
-    },
-  },
   "player-killed-player": {
     message: (event, formattedTimestamp) => {
       const actor = event.actor.state.game.name;
@@ -119,11 +75,6 @@ const eventHandlers = {
     message: (event, formattedTimestamp) => {
       const target = event.target.state.game.name;
       return { [formattedTimestamp]: `${target} respawned` };
-    },
-  },
-  "game-respawned-roshan": {
-    message: (event, formattedTimestamp) => {
-      return { [formattedTimestamp]: `Roshan respawned` };
     },
   },
   "player-selfrevived-player": {
@@ -176,42 +127,6 @@ const eventHandlers = {
     },
   },
   "player-destroyed-ancient": {
-    message: (event, formattedTimestamp) => {
-      const actor = event.actor.state.game.name;
-      const target = event.target.id;
-      return {
-        [formattedTimestamp]: `${actor} destroyed ${target}`,
-      };
-    },
-  },
-  "team-destroyed-tower": {
-    message: (event, formattedTimestamp) => {
-      const actor = event.actor.state.game.name;
-      const target = event.target.id;
-      return {
-        [formattedTimestamp]: `${actor} destroyed ${target}`,
-      };
-    },
-  },
-  "team-destroyed-barracksMelee": {
-    message: (event, formattedTimestamp) => {
-      const actor = event.actor.state.game.name;
-      const target = event.target.id;
-      return {
-        [formattedTimestamp]: `${actor} destroyed ${target}`,
-      };
-    },
-  },
-  "team-destroyed-barracksRange": {
-    message: (event, formattedTimestamp) => {
-      const actor = event.actor.state.game.name;
-      const target = event.target.id;
-      return {
-        [formattedTimestamp]: `${actor} destroyed ${target}`,
-      };
-    },
-  },
-  "team-destroyed-ancient": {
     message: (event, formattedTimestamp) => {
       const actor = event.actor.state.game.name;
       const target = event.target.id;

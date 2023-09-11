@@ -49,6 +49,27 @@ const FILTEREDEVENTTYPES = [
   "series-resumed-game",
 ];
 
+const MESSAGEEVENTS = [
+  "tournament-started-series",
+  "team-picked-character",
+  "team-banned-character",
+  "series-started-game",
+  "player-killed-player",
+  "player-multikilled-player",
+  "player-teamkilled-player",
+  "player-selfkilled-player",
+  "game-respawned-player",
+  "player-selfrevived-player",
+  "player-killed-roshan",
+  "player-captured-outpost",
+  "player-destroyed-tower",
+  "player-destroyed-barracksMelee",
+  "player-destroyed-barracksRange",
+  "player-destroyed-ancient",
+  "player-completed-increaseLevel",
+  "team-won-game",
+];
+
 const SUPPORTEDEVENTTYPES = [
   "grid-started-feed",
   "grid-sampled-feed",
@@ -141,9 +162,8 @@ function WebSocketDataDiv(props) {
             return handler.message(event, formattedTimestamp);
           });
 
-          // messageEvents.forEach((singleEvent) => {
-          if (!FILTEREDEVENTTYPES.includes(message.data.events[0].type)) {
-            messageQueue.enqueue(messageEvents);
+          if (MESSAGEEVENTS.includes(message.data.events[0].type)) {
+            messageQueue.enqueue([messageEvents[0]]);
           }
           // });
         }
