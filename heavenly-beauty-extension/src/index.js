@@ -7,22 +7,22 @@ import reportWebVitals from "./reportWebVitals";
 window.renderReactApp = function () {
   const appRoot = document.getElementById("reactAppRoot");
   const testRoot = document.getElementById("root");
-  if (appRoot) {
-    ReactDOM.render(
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>,
-      appRoot
-    );
-  }
-  // ReactDOM.render(
-  //   <React.StrictMode>
-  //     <App />
-  //   </React.StrictMode>,
-  //   testRoot
-  // );
+  // if (appRoot) {
+  //   ReactDOM.render(
+  //     <React.StrictMode>
+  //       <App />
+  //     </React.StrictMode>,
+  //     appRoot
+  //   );
+  // }
+  ReactDOM.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+    testRoot
+  );
 };
 
-// window.renderReactApp();
+window.renderReactApp();
 
 reportWebVitals();
