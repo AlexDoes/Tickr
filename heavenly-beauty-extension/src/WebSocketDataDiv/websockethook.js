@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { eventHandlers } from "../Resources/normalization";
+import { eventHandlers, stateNormalizer } from "../Resources/normalization";
 
 class Queue {
   constructor() {
@@ -150,15 +150,21 @@ export function useWebSocketData() {
           const formattedTimestamp = formatTimestamp(messageTimestamp);
 
           const messageEvents = message.data.events.map((event) => {
-            const handler =
-              eventHandlers[event.type] || eventHandlers["default"];
+            // const messageHandler =
+            //   eventHandlers[event.type] || eventHandlers["default"];
+            // const stateHandler = stateNormalizer(event);
 
-            return handler.message(event, formattedTimestamp);
+            // return [
+            //   messageHandler.message(event, formattedTimestamp),
+            //   stateHandler,
+            // ];
+            return stateNormalizer(event, formattedTimestamp);
           });
 
-          if (MESSAGEEVENTS.includes(message.data.events[0].type)) {
-            messageQueue.enqueue([messageEvents[0]]);
-          }
+          // if (MESSAGEEVENTS.includes(message.data.events[0].type)) {
+          messageQueue.enqueue(messageEvents);
+          setTimestamp((prevTimestamp) => [...prevTimestamp, messageTimestamp]);
+          // }
         }
       };
 

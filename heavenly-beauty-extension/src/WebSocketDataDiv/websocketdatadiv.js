@@ -7,7 +7,7 @@ function WebSocketDataDiv(props) {
 
   return (
     <>
-      <div
+      {/* <div
         id="websocketDataDiv"
         className="text-xl font-bold border-yellow-200 border-2"
       >
@@ -26,7 +26,7 @@ function WebSocketDataDiv(props) {
               );
             })
           : `WebSocket Data Will Appear Here ${eventId}`}
-      </div>
+      </div> */}
     </>
   );
 }

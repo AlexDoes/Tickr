@@ -13,7 +13,7 @@ const gridNormalizer = (event) => {
   return { type: event.type, actor: actor, position: position };
 };
 
-const eventHandlers = {
+const messageHandlers = {
   "tournament-started-series": {
     message: (event, formattedTimestamp) => {
       const [team1, team2] = event.actor.state.teams;
@@ -170,7 +170,7 @@ const eventHandlers = {
   },
 };
 
-const stateNormalizer = (event) => {
+const stateNormalizer = (event, formattedTimestamp) => {
   const games = event.seriesState.games;
   const game = games[games.length - 1];
   const teams = game.teams;
@@ -203,6 +203,9 @@ const stateNormalizer = (event) => {
   }
 
   return {
+    message:
+      messageHandlers[event.type].message(event, formattedTimestamp) ||
+      messageHandlers["default"].message(event, formattedTimestamp),
     clock: {
       ticking: game.clock.ticking,
       currentSeconds: game.clock.currentSeconds,
@@ -239,4 +242,4 @@ const stateNormalizer = (event) => {
 //   }
 // ]
 
-export { eventHandlers, gridNormalizer, stateNormalizer };
+export { gridNormalizer, stateNormalizer };
