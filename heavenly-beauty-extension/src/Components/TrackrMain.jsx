@@ -10,9 +10,9 @@ function parseWebSocketData(data) {
       return {};
     }
 
-    console.log(data, 'before parsing!');
-    console.log(data.events[0].type, 'action parsing!');
-    console.log(data.occurredAt, 'occurredAt parsing!');
+    // console.log(data, 'before parsing!');
+    // console.log(data.events[0].type, 'action parsing!');
+    // console.log(data.occurredAt, 'occurredAt parsing!');
 
     const formattedTimestamp = formatTimestamp(data.occurredAt);
     const firstEvent = data.events[0];
@@ -21,11 +21,11 @@ function parseWebSocketData(data) {
     const eventType = firstEvent.type;
 
     if (eventType && messageHandlers[eventType]) {
-      console.log('hello hitting before formatted data!')
+      // console.log('hello hitting before formatted data!')
       // Parse the data using the message handler for the event type
       const formattedData = messageHandlers[eventType].message(firstEvent, formattedTimestamp);
 
-      console.log(formattedData, 'formatted data after parsing!');
+      // console.log(formattedData, 'formatted data after parsing!');
 
       return formattedData;
     }

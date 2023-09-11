@@ -1,16 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 function WebSocketDataDiv(props) {
   const { websocketData } = props;
+  const [lastValidData, setLastValidData] = useState(null);
+
+  // Check if the data has an eventType
+  const hasEventType = websocketData['message'] !== "Default message for unhandled event type";
+
+  useEffect(() => {
+    // If the data has an eventType, update the lastValidData state
+    if (hasEventType) {
+      setLastValidData(websocketData);
+    }
+  }, [hasEventType, websocketData]);
 
   return (
     <div className="text-xl font-bold border-yellow-200 border-2 overflow-x-auto whitespace-nowrap">
-      {Object.entries(websocketData).map(([key, value], index) => (
-        <div key={index} className="text-red-700 inline-block mr-4">
-          {key}: {JSON.stringify(value)}
+      {hasEventType ? (
+        <div className="text-red-700 inline-block mr-4">
+          {Object.keys(websocketData).map((key) => (
+            <div key={key}>
+              {key}: {websocketData[key]}
+            </div>
+          ))}
         </div>
-      ))}
-      {Object.keys(websocketData).length === 0 && (
+      ) : lastValidData ? (
+        <div className="text-red-700 inline-block mr-4">
+          {Object.keys(lastValidData).map((key) => (
+            <div key={key}>
+              {key}: {lastValidData[key]}
+            </div>
+          ))}
+        </div>
+      ) : (
         <div>WebSocket Data Will Appear Here</div>
       )}
     </div>
