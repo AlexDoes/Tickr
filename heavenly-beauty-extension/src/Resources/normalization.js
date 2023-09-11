@@ -257,13 +257,41 @@ const eventHandlers = {
 
 const stateNormalizer = (event) => {
   const game = event.seriesState.games[games.length - 1];
-  const teams = event.seriesState.games;
+  const teams = game.teams;
+  for (const team in teams) {
+    const players = [];
+    for (const player in teams.players) {
+      const playerObj = {
+        alive: player.alive,
+        character: player.character.name,
+        deaths: player.deaths,
+        items: player.items,
+        assists: player.killAssistsGiven,
+        kills: player.kills,
+        money: player.money,
+        netWorth: player.netWorth,
+        name: player.name,
+        position: player.position,
+      };
+      players.push(playerObj);
+    }
+    const obj = {
+      name: team.name,
+      kills: team.kills,
+      deaths: team.deaths,
+      assists: team.killAssistsReceived,
+      money: team.money,
+      players: players,
+    };
+    teams.push(obj);
+  }
+
   return {
     clock: {
       ticking: game.clock.ticking,
       currentSeconds: game.clock.currentSeconds,
     },
-    teams: {},
+    teams: teams,
   };
 };
 
