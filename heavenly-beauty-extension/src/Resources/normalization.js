@@ -256,7 +256,8 @@ const eventHandlers = {
 };
 
 const stateNormalizer = (event) => {
-  const game = event.seriesState.games[games.length - 1];
+  const games = event.seriesState.games;
+  const game = games[games.length - 1];
   const teams = game.teams;
   for (const team in teams) {
     const players = [];

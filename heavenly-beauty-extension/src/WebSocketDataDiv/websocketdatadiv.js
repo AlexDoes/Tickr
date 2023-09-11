@@ -135,11 +135,6 @@ function WebSocketDataDiv(props) {
           const formattedTimestamp = `${hours}:${minutes}:${seconds}`;
 
           const messageEvents = message.data.events.map((event) => {
-            if (gridNormalization[event.type] === 0) {
-              console.log(event);
-              gridNormalization[event.type] = 1;
-            }
-
             const handler =
               eventHandlers[event.type] || eventHandlers["default"];
 
