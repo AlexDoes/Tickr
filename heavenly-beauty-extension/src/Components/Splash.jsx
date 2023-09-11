@@ -22,11 +22,11 @@ export default function Splash(props) {
       </div>
       <div className="w-3/5 border-red-300  text-center h-full flex flex-col items-center justify-center mx-auto gap-2">
         <div className="border border-slate-300 p-6 rounded-xl">
-          <p className="md:text-xl xs:text-xs">
+          <p className="md:text-lg xs:text-xs">
             Tickr is a chrome extension that allows you to track the state of
             live DotA tournaments with ease.
           </p>
-          <p className="md:text-xl xs:text-xs">
+          <p className="md:text-lg xs:text-xs">
             Showcasing the state of game, heat maps, and stats all across the
             board.
           </p>
@@ -49,7 +49,7 @@ export default function Splash(props) {
           </div>
         </div>
       </div>
-      <div className="text-center w-1/4 flex justify-center gap-4 items-center border-2 border-yellow-100">
+      <div className="text-center w-1/4 flex justify-center gap-4 items-center border-yellow-100">
         {/* <ul>
           <li>Finals</li>
           <li>Semifinals Upper Bracket</li>

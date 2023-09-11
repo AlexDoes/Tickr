@@ -51,7 +51,7 @@ function App() {
 
   return (
     <>
-      <div className=" fixed w-[100vw] h-[20vh] border-green-700 z-100 overflow-visible sm:text-sm md:text-md lg:text-lg xl:-text-xl">
+      <div className=" font-mono fixed w-[100vw] h-[20vh] border-green-700 z-100 overflow-visible sm:text-sm md:text-md lg:text-lg xl:-text-lg ">
         <Dashboard />
       </div>
     </>
