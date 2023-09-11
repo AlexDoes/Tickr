@@ -197,8 +197,7 @@ export default function TrackrMain(props) {
       <WebSocketDataDiv
         matchId={props.eventId}
         websocketData={
-          parseWebSocketData(websocketData) ||
-          (websocketData ? { message: "Starting ticker" } : null)
+          parseWebSocketData(websocketData)
         }
       />
     </div>

@@ -6,8 +6,11 @@ function WebSocketDataDiv(props) {
   const messagesContainerRef = useRef(null);
 
   useEffect(() => {
-    // Check if websocketData has content before updating messages
-    if (websocketData && websocketData.message !== 'Default message for missing or invalid data') { // Ensure there's a valid message
+    // Check if websocketData has content and is not one of the unwanted messages
+    if (websocketData && 
+        websocketData.message !== 'Default message for missing or invalid data' &&
+        websocketData.message !== 'Starting ticker') {
+
       // Add the new websocketData to the messages array
       setMessages(prevMessages => [...prevMessages, websocketData]);
 
@@ -16,7 +19,8 @@ function WebSocketDataDiv(props) {
         messagesContainerRef.current.scrollLeft = messagesContainerRef.current.scrollWidth;
       }
     }
-  }, [websocketData]);
+}, [websocketData]);
+
 
   return (
     <div className="text-xl font-bold border-yellow-200 border-2 overflow-hidden">
