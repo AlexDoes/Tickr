@@ -21,7 +21,7 @@ wss.on("connection", async function connection(ws, req) {
   const eventsFile = jsonlFile(jsfiles[0]);
 
   // Control the message rate with a delay
-  const messageDelay = 10; // Adjust the delay in milliseconds as needed
+  const messageDelay = 9; // Adjust the delay in milliseconds as needed
   let lastMessageTime = 0;
 
   // Function to send a message with throttling
