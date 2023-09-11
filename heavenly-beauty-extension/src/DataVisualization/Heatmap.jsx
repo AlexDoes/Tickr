@@ -26,6 +26,7 @@ const Heatmap = ({ incomingEvent }) => {
   useEffect(() => {
     if (incomingEvent) {
       // Normalize coordinates
+      console.log(incomingEvent, "INCOMING EVENT");
       const normalizedX = normalizeCoordinate(incomingEvent.x, -8000, 8000, 0, 1000);
       const normalizedY = normalizeCoordinate(incomingEvent.y, -8000, 8000, 0, 1000);
 

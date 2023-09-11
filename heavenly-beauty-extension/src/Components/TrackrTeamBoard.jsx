@@ -3,7 +3,7 @@ import TrackrTeamBoardCard from "./TrackrTeamBoardCard";
 // import { useWebSocketData } from "../WebSocketDataDiv/websockethook.js"; // Import the custom hook
 import { useEffect, useState } from "react";
 
-const actionList = new Set();
+const actionList = new Set(["destroyed", "killed", "multikilled","selfrevived", "captured", "player-killed-player", "player-multikilled-player", "player-teamkilled-player", "player-selfkilled-player", "player-selfrevived-player", "player-killed-roshan", "player-captured-outpost", "player-destroyed-tower", "player-destroyed-barracksMelee", "player-destroyed-barracksRange", "player-destroyed-ancient" ]);
 
 export default function TrackrTeamBoard(props) {
   const [team1, team2] = props.teams;
@@ -31,7 +31,61 @@ export default function TrackrTeamBoard(props) {
   // }, []);
   const websocketData = props.websocketData; 
 
-  console.log(websocketData, '---------------------------------------');
+  useEffect(() => {
+    // console.log(websocketData, "WEBSOCKET DATA");
+    if (websocketData) {
+      // console.log(websocketData.events, "WEBSOCKET DATA EVENTS");
+      for(const event of websocketData.events) {
+        if (actionList.has(event.type)) {
+          console.log(event, "EVENT");
+          // console.log(event.action, "EVENT ACTION");
+          // console.log(event.target, "EVENT TARGET")
+          // console.log(event.target.state, "EVENT TARGET STATE");
+          // console.log(event.target.state.game, "EVENT TARGET STATE GAME");
+          // console.log(event.target.state.game.position, "EVENT TARGET STATE GAME POSITION");
+          // console.log(event.target.state.position, "EVENT TARGET");
+          let pos; 
+ 
+          if (event.type === "player-killed-player"){
+            pos = event.target.state.game.position;
+          }else
+           if (event.type === "player-multikilled-player"){
+            pos = event.target.state.game.position;
+          }else if (event.type === "player-teamkilled-player"){
+            pos = event.target.state.game.position;
+          }else if (event.type === "player-selfkilled-player"){
+            pos = event.target.state.game.position;
+          }else if (event.type === "player-selfrevived-player"){
+            pos = event.target.state.game.position;
+          }else if (event.type === "player-killed-roshan"){
+            pos = event.target.state.position;
+          }else if (event.type === "player-captured-outpost"){
+            pos = event.target.state.position;
+          }else if (event.type === "player-destroyed-tower"){
+            pos = event.target.state.position;
+          }else if (event.type === "player-destroyed-barracksMelee"){
+            pos = event.target.state.position;
+          }else if (event.type === "player-destroyed-barracksRange"){
+            pos = event.target.state.position;
+          }else if (event.type === "player-destroyed-ancient"){
+            pos = event.target.state.position;
+          }
+      
+          // console.log(pos, "POS");
+          const newEvent = {
+            x: pos.x,
+            y: pos.y,
+            eventType: event.type
+          };
+          setIncomingEvent(newEvent);
+          console.log(newEvent, "NEW EVENT NEW EVENT NEW EVENT");
+        }
+      }
+    }
+  }, [websocketData]);
+
+
+  // console.log(websocketData, '---------------------------------------');
 
   return (
     <div className="h-full w-full flex flex-row border-red-700 justify-evenly xs:text-sm lg:text-lg xl:text-xl relative">
