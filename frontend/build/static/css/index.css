@@ -507,6 +507,9 @@ video {
 .mb-2 {
   margin-bottom: 0.5rem;
 }
+.mr-4 {
+  margin-right: 1rem;
+}
 .inline-block {
   display: inline-block;
 }
@@ -515,9 +518,6 @@ video {
 }
 .grid {
   display: grid;
-}
-.hidden {
-  display: none;
 }
 .h-1\/4 {
   height: 25%;
@@ -591,11 +591,14 @@ video {
 .gap-4 {
   gap: 1rem;
 }
-.overflow-hidden {
-  overflow: hidden;
-}
 .overflow-visible {
   overflow: visible;
+}
+.overflow-x-auto {
+  overflow-x: auto;
+}
+.whitespace-nowrap {
+  white-space: nowrap;
 }
 .rounded-3xl {
   border-radius: 1.5rem;
