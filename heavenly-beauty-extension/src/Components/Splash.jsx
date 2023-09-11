@@ -56,7 +56,7 @@ export default function Splash(props) {
           <li>Semifinals Lower Bracket</li>
         </ul> */}
         {/* will fix later */}
-        <div className="w-full border-2 relative bg-slate-800 text-md text-emerald-400 rounded-md cursor-pointer ">
+        <div className="w-full border-2 relative bg-slate-800 text-md text-emerald-400 rounded-md cursor-pointer min-h-1/4 h-1/4 text-sm break-normal">
           <button onClick={() => setIsOpen(!isOpen)} className="w-full h-full">
             {selectedMatch ? matchMap[selectedMatch] : "Select a game"}
           </button>
@@ -83,19 +83,6 @@ export default function Splash(props) {
             </ul>
           )}
         </div>
-        {/* <div className="w-1/2 bg-slate-800 text-md text-emerald-400 rounded-md cursor-pointer hover:text-[#f5dddd]"> */}
-        {/* <Dropdown
-            className="relative flex flex-col items-center justify-center w-full h-full"
-            options={Object.values(matchMap)}
-            onChange={(e) => {
-              let key = Object.keys(matchMap).find(
-                (key) => matchMap[key] === e.value
-              );
-              setSelectedMatch(key);
-            }}
-            placeholder="Select a match"
-          /> */}
-        {/* </div> */}
         <div className="h-1/4 w-full">
           <button
             className="bg-gradient-to-l hover:from-[#8FFFC3] hover:to-[#015f2d] text-[#22276b] px-4 py-2 rounded-md group h-full from-[#ef6969] to-[#800e0e] ease-in-out duration-1000 accent-lime-500"
