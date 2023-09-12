@@ -199,7 +199,7 @@ export default function TrackrMain(props) {
           websocketData={websocketData}
         />
       </div>
-      <div className="w-full border-2 border-red-200 -bottom-[5vh] absolute h-[5vh]">
+      <div className="w-full border-b border-cyan-200 -bottom-[5vh] absolute h-[5vh] -mx-4 bg-slate-300">
         <WebSocketDataDiv
           matchId={props.eventId}
           websocketData={parseWebSocketData(websocketData)}

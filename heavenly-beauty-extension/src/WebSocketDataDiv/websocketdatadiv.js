@@ -54,10 +54,10 @@ function WebSocketDataDiv(props) {
     <div className="text-xl font-bold border-yellow-200 overflow-hidden h-[5vh] flex items-center">
       <div
         ref={messagesContainerRef}
-        className="text-red-600 whitespace-nowrap flex overflow-x-hidden animate-scroll-left"
+        className="text-[#34c1c3] whitespace-nowrap flex overflow-x-hidden animate-scroll-left font-semibold"
         style={{
-          marginLeft: "-10px", // Add margin to the left
-          marginRight: "-10px", // Add margin to the right
+          marginLeft: "0px", // Add margin to the left
+          marginRight: "0px", // Add margin to the right
         }}
       >
         {messages.map((message, index) => (
