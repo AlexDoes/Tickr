@@ -110,6 +110,7 @@ export default function TrackrTeamBoard(props) {
           player={player1}
           background={true}
           radiant={true}
+          cardPosition={1}
         />
         <TrackrTeamBoardCard
           player={player2}
@@ -130,6 +131,7 @@ export default function TrackrTeamBoard(props) {
           player={player5}
           background={true}
           radiant={true}
+          cardPosition={5}
         />
       </div>
       <div className="h-full border-yellow-200 w-[25%] flex justify-evenly items-center gap-1">
@@ -167,6 +169,7 @@ export default function TrackrTeamBoard(props) {
           player={player6}
           background={true}
           radiant={false}
+          cardPosition={1}
         />
         <TrackrTeamBoardCard
           player={player7}
@@ -187,6 +190,7 @@ export default function TrackrTeamBoard(props) {
           player={player10}
           background={true}
           radiant={false}
+          cardPosition={5}
         />
       </div>
       {/* <button

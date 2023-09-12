@@ -1,6 +1,9 @@
 export default function TrackrTeamBoardCard(props) {
-  const { name, money, kills, deaths, assists, items } = props?.player;
-
+  const { name, money, kills, deaths, assists, items, netWorth } =
+    props?.player;
+  console.log(props?.player, "props.player");
+  const cardPosition = props.cardPosition;
+  const top = cardPosition % 5 === 0 ? true : false;
   if (props.background) {
     return (
       //bg-[#665c5c]
@@ -9,7 +12,7 @@ export default function TrackrTeamBoardCard(props) {
           props.radiant
             ? "justify-end bg-gradient-to-r from-[#f5f5f5] via-slate-600 to-[#068d45]"
             : "justify-start bg-gradient-to-r to-[#f5f5f5] via-slate-800 from-[#d12721]"
-        }`}
+        } ${top ? "rounded-xl" : ""} `}
       >
         <div className="grid grid-cols-7 grid-rows-1 gap-4 justify-items-center items-center h-full ">
           <img
@@ -23,7 +26,9 @@ export default function TrackrTeamBoardCard(props) {
           >
             {name}
           </div>
-          <div class={`money ${!props.radiant ? "order-6" : ""}`}>{money}g</div>
+          <div class={`money ${!props.radiant ? "order-6" : ""}`}>
+            {netWorth}g
+          </div>
           <div class={`kills`}>{kills}(k)</div>
           <div class={`deaths`}>{deaths}(d)</div>
           <div class={`assists`}>{assists}(a)</div>
@@ -48,7 +53,9 @@ export default function TrackrTeamBoardCard(props) {
           <div class={`name col-span-2 ${!props.radiant ? "order-last" : ""}`}>
             {name}
           </div>
-          <div class={`money ${!props.radiant ? "order-6" : ""}`}>{money}g</div>
+          <div class={`money ${!props.radiant ? "order-6" : ""}`}>
+            {netWorth}g
+          </div>
           <div class={`kills`}>{kills}(k)</div>
           <div class={`deaths`}>{deaths}(d)</div>
           <div class={`assists`}>{assists}(a)</div>
