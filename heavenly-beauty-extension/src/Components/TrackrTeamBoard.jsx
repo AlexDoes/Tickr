@@ -3,7 +3,24 @@ import TrackrTeamBoardCard from "./TrackrTeamBoardCard";
 // import { useWebSocketData } from "../WebSocketDataDiv/websockethook.js"; // Import the custom hook
 import { useEffect, useState } from "react";
 
-const actionList = new Set(["destroyed", "killed", "multikilled","selfrevived", "captured", "player-killed-player", "player-multikilled-player", "player-teamkilled-player", "player-selfkilled-player", "player-selfrevived-player", "player-killed-roshan", "player-captured-outpost", "player-destroyed-tower", "player-destroyed-barracksMelee", "player-destroyed-barracksRange", "player-destroyed-ancient" ]);
+const actionList = new Set([
+  "destroyed",
+  "killed",
+  "multikilled",
+  "selfrevived",
+  "captured",
+  "player-killed-player",
+  "player-multikilled-player",
+  "player-teamkilled-player",
+  "player-selfkilled-player",
+  "player-selfrevived-player",
+  "player-killed-roshan",
+  "player-captured-outpost",
+  "player-destroyed-tower",
+  "player-destroyed-barracksMelee",
+  "player-destroyed-barracksRange",
+  "player-destroyed-ancient",
+]);
 
 export default function TrackrTeamBoard(props) {
   const [team1, team2] = props.teams;
@@ -11,23 +28,30 @@ export default function TrackrTeamBoard(props) {
   const [player6, player7, player8, player9, player10] = team2.players;
   const [incomingEvent, setIncomingEvent] = useState(null);
 
-  const websocketData = props.websocketData; 
+  const websocketData = props.websocketData;
+  console.log(websocketData, "WEBSOCKET DATA IN TEAMBOARD");
 
   useEffect(() => {
     if (websocketData) {
-      for(const event of websocketData.events) {
+      for (const event of websocketData.events) {
         if (actionList.has(event.type)) {
           console.log(event, "EVENT");
-          let pos; 
-          if (event.type === "player-killed-player" || event.type === "player-multikilled-player" || event.type === "player-teamkilled-player" || event.type === "player-selfkilled-player" || event.type === "player-selfrevived-player"){
+          let pos;
+          if (
+            event.type === "player-killed-player" ||
+            event.type === "player-multikilled-player" ||
+            event.type === "player-teamkilled-player" ||
+            event.type === "player-selfkilled-player" ||
+            event.type === "player-selfrevived-player"
+          ) {
             pos = event.target.state.game.position;
-          }else{
+          } else {
             pos = event.target.state.position;
           }
           const newEvent = {
             x: pos.x,
             y: pos.y,
-            eventType: event.action
+            eventType: event.action,
           };
           setIncomingEvent(newEvent);
           console.log(newEvent, "NEW EVENT NEW EVENT NEW EVENT");
@@ -35,7 +59,6 @@ export default function TrackrTeamBoard(props) {
       }
     }
   }, [websocketData]);
-
 
   return (
     <div className="h-full w-full flex flex-row border-red-700 justify-evenly xs:text-sm lg:text-lg xl:text-xl relative">

@@ -45,7 +45,8 @@
   position: relative;
 }
 
-.dota2-map, .heatmap-layer {
+.dota2-map,
+.heatmap-layer {
   position: absolute;
   top: 0;
   left: 0;
@@ -55,8 +56,8 @@
 
 .heatmap-layer {
   pointer-events: none;
-  background-color: rgba(0, 0, 40, 15);
-  opacity: .8;
+  /* background-color: rgba(0, 0, 40, 15); */
+  opacity: 0.8;
 }
 
 .popup {
