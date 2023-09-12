@@ -187,21 +187,22 @@ export default function TrackrMain(props) {
   ];
 
   return (
-    <div className="h-full w-full flex flex-col overflow-visible relative">
+    <div className="h-full w-full flex flex-col overflow-visible relative border-4">
       {showWebSocket && (
         <WebSocketComponent
           onDataReceived={updateWebSocketData}
           matchId={props.eventId}
         />
       )}
-      <div className="w-full h-full border-2 border-red-900">
+      <div className="w-full border-2 border-red-900">
         <TrackrTeamBoard
           exit={props.handleExit}
           teams={teams}
           websocketData={websocketData}
         />
       </div>
-      <div className="w-full h-full absolute bottom-0">
+      <>hello</>
+      <div className="w-full border-2 border-red-200 -bottom-[5vh] absolute h-[5vh]">
         <WebSocketDataDiv
           matchId={props.eventId}
           websocketData={parseWebSocketData(websocketData)}
