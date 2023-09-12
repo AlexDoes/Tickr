@@ -1,8 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
+const PLACEHOLDER_COUNT = 5;  // Number of placeholder messages
 
 function WebSocketDataDiv(props) {
   const { websocketData } = props;
-  const [messages, setMessages] = useState([]); // initialize with an empty array
+  
+  // Initialize with placeholder messages only once
+  const [messages, setMessages] = useState(() => {
+    const initialPlaceholders = Array(PLACEHOLDER_COUNT).fill('----------------');
+    return initialPlaceholders;
+  });
   const messagesContainerRef = useRef(null);
 
   useEffect(() => {
@@ -42,30 +48,33 @@ function WebSocketDataDiv(props) {
 
 
 
-  return (
-    <div className="text-xl font-bold border-yellow-200 border-2 overflow-hidden">
-      <div
-        ref={messagesContainerRef}
-        className="text-red-700 whitespace-nowrap flex overflow-x-hidden animate-scroll-left"
-        style={{
-          marginLeft: "-10px", // Add margin to the left
-          marginRight: "-10px", // Add margin to the right
-        }}
-      >
-        {messages.map((message, index) => (
-          <div key={index} className="mr-4" style={{ margin: "0 20px" }}>
-            {/* Add margin to each message */}
-            {Object.keys(message).map((key) => (
-              <div key={key}>
-                {key}: {message[key]}
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
+return (
+  <div className="text-xl font-bold border-yellow-200 border-2 overflow-hidden">
+    <div
+      ref={messagesContainerRef}
+      className="text-red-700 whitespace-nowrap flex overflow-x-hidden animate-scroll-left"
+      style={{
+        marginLeft: "-10px", // Add margin to the left
+        marginRight: "-10px", // Add margin to the right
+      }}
+    >
+      {messages.map((message, index) => (
+        <div key={index} className="mr-4" style={{ margin: "0 20px" }}>
+          {/* Check if the message is a placeholder or an actual message */}
+          {typeof message === 'string' ? (
+              <div>{message}</div>
+          ) : (
+              Object.keys(message).map((key) => (
+                  <div key={key}>
+                      {key}: {message[key]}
+                  </div>
+              ))
+          )}
+        </div>
+      ))}
     </div>
-  );
+  </div>
+);
 }
-
 
 export default WebSocketDataDiv;
