@@ -195,19 +195,29 @@ export default function TrackrMain(props) {
   ];
 
   return (
-    <div className="h-full w-full flex flex-col overflow-visible">
+    <div className="h-full w-full flex flex-col overflow-visible relative border-cyan-700 px-4">
       {showWebSocket && (
         <WebSocketComponent onDataReceived={updateWebSocketData} />
       )}
-      <TrackrTeamBoard
-        exit={props.handleExit}
-        teams={teams}
-        websocketData={websocketData}
-      />
-      <WebSocketDataDiv
-        matchId={props.eventId}
-        websocketData={parseWebSocketData(websocketData)}
-      />
+      <div className="w-full h-full border-red-900">
+        <TrackrTeamBoard
+          exit={props.handleExit}
+          teams={teams}
+          websocketData={websocketData}
+        />
+      </div>
+      <div className="w-full border-b border-cyan-200 -bottom-[5vh] absolute h-[5vh] -mx-4 bg-slate-300">
+        <WebSocketDataDiv
+          matchId={props.eventId}
+          websocketData={parseWebSocketData(websocketData)}
+        />
+      </div>
+      <button
+        className="absolute top-1 right-2 border-2 p-1 rounded-lg px-2 text-xs text-cyan-400 border-cyan-300 hover:text-red-300 hover:border-red-300"
+        onClick={() => props.closeFunction()}
+      >
+        x
+      </button>
     </div>
   );
 }
