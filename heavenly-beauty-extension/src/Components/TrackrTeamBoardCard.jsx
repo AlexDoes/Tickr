@@ -12,7 +12,7 @@ export default function TrackrTeamBoardCard(props) {
           props.radiant
             ? "justify-end bg-gradient-to-r from-[#f5f5f5] via-slate-600 to-[#068d45]"
             : "justify-start bg-gradient-to-r to-[#f5f5f5] via-slate-800 from-[#d12721]"
-        } ${top ? "rounded-xl border-8" : ""} `}
+        } ${top ? "rounded-xl" : ""} `}
       >
         <div className="grid grid-cols-7 grid-rows-1 gap-4 justify-items-center items-center h-full ">
           <img
