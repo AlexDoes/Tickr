@@ -60,6 +60,11 @@ export default function Splash(props) {
             </a>
           </div>
           <div className="text-[#8FFFC3] hover:underline-offset-2 hover:underline cursor-pointer">
+            <a href="https://www.linkedin.com/in/jimmykuangg/" target="_blank">
+              Jimmy Kuang
+            </a>
+          </div>
+          <div className="text-[#8FFFC3] hover:underline-offset-2 hover:underline cursor-pointer">
             <a
               href="https://www.linkedin.com/in/steven-sookhai-37192a22a/"
               target="_blank"
