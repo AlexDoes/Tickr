@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 
-export default function WebSocketComponent({ onDataReceived }) {
+export default function WebSocketComponent({ onDataReceived, matchId }) {
+  const url = matchId || "2364966";
   useEffect(() => {
     let socket = null;
     let retryCount = 0;
@@ -8,7 +9,7 @@ export default function WebSocketComponent({ onDataReceived }) {
     const RETRY_DELAY = 5000;
 
     const establishWebSocketConnection = () => {
-      socket = new WebSocket("ws://localhost:8080/2364966");
+      socket = new WebSocket(`ws://localhost:8080/${url}`);
 
       socket.onopen = function (e) {
         console.log("[open] Connection established to localhost:8080");

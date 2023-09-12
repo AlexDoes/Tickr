@@ -66,6 +66,8 @@ function normalizeTime(number) {
 export default function TrackrMain(props) {
   const [websocketData, setWebSocketData] = useState(null);
   const [showWebSocket, setShowWebSocket] = useState(true);
+  const [matchId, setMatchId] = useState(null);
+  console.log(props.eventId);
 
   const updateWebSocketData = (data) => {
     setWebSocketData(data);
@@ -185,21 +187,26 @@ export default function TrackrMain(props) {
   ];
 
   return (
-    <div className="h-full w-full flex flex-col overflow-visible">
+    <div className="h-full w-full flex flex-col overflow-visible relative">
       {showWebSocket && (
-        <WebSocketComponent onDataReceived={updateWebSocketData} />
+        <WebSocketComponent
+          onDataReceived={updateWebSocketData}
+          matchId={props.eventId}
+        />
       )}
-      <TrackrTeamBoard
-        exit={props.handleExit}
-        teams={teams}
-        websocketData={websocketData}
-      />
-      <WebSocketDataDiv
-        matchId={props.eventId}
-        websocketData={
-          parseWebSocketData(websocketData)
-        }
-      />
+      <div className="w-full h-full border-2 border-red-900">
+        <TrackrTeamBoard
+          exit={props.handleExit}
+          teams={teams}
+          websocketData={websocketData}
+        />
+      </div>
+      <div className="w-full h-full absolute bottom-0">
+        <WebSocketDataDiv
+          matchId={props.eventId}
+          websocketData={parseWebSocketData(websocketData)}
+        />
+      </div>
     </div>
   );
 }
