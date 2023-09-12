@@ -92,7 +92,9 @@ export default function Splash(props) {
           </button>
 
           {isOpen && (
-            <ul className="dropdown-menu absolute flex flex-col items-start border-2 bg-slate-700 text-sm">
+            <ul
+              className={`dropdown-menu absolute flex flex-col items-start border-2 bg-slate-700 text-sm w-full`}
+            >
               {Object.values(matchMap)
                 .sort((a, b) => a[0] - b[0])
                 .map((match) => (

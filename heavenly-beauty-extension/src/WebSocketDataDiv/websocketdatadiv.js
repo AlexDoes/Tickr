@@ -222,7 +222,7 @@ function WebSocketDataDiv(props) {
     <div className="text-xl font-bold border-yellow-200 overflow-hidden h-[5vh] flex items-center">
       <div
         ref={messagesContainerRef}
-        className="text-[#34c1c3] whitespace-nowrap flex overflow-x-hidden animate-scroll-left font-semibold"
+        className="whitespace-nowrap flex overflow-x-hidden animate-scroll-left font-semibold"
         style={{
           marginLeft: "0px",
           marginRight: "0px",

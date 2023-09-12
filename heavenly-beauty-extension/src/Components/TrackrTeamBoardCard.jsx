@@ -1,8 +1,11 @@
+import retrieveimage from "../Resources/imageMapObject";
+
 export default function TrackrTeamBoardCard(props) {
-  const { name, money, kills, deaths, assists, items, netWorth } =
+  const { name, money, kills, deaths, assists, items, netWorth, character } =
     props?.player;
   console.log(props?.player, "props.player");
   const cardPosition = props.cardPosition;
+  let imgUrl = "https://i.imgur.com/u6OIb8q.jpg";
   if (props.background) {
     return (
       //bg-[#665c5c]
@@ -23,7 +26,7 @@ export default function TrackrTeamBoardCard(props) {
       >
         <div className="grid grid-cols-7 grid-rows-1 gap-4 justify-items-center items-center h-full ">
           <img
-            src="https://i.imgur.com/u6OIb8q.jpg"
+            src={imgUrl}
             className={`w-[h] h-full ${props.radiant ? "order-last" : ""}`}
           />{" "}
           <div
@@ -54,7 +57,7 @@ export default function TrackrTeamBoardCard(props) {
       >
         <div className="grid h-full grid-cols-7 grid-rows-1 gap-4 justify-items-center items-center">
           <img
-            src="https://i.imgur.com/u6OIb8q.jpg"
+            src={imgUrl}
             className={`w-[h] h-full ${props.radiant ? "order-last" : ""}`}
           />{" "}
           <div class={`name col-span-2 ${!props.radiant ? "order-last" : ""}`}>

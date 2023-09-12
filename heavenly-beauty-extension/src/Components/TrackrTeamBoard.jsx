@@ -135,28 +135,34 @@ export default function TrackrTeamBoard(props) {
         />
       </div>
       <div className="h-full border-yellow-200 w-[25%] flex justify-evenly items-center gap-1">
-        <div className="flex flex-col gap-1 text-center h-full outline-red-900 w-full justify-between">
-          <div className="teamname1 text-[#6aff74] py-2 text-[2rem] mt-3 ">
+        {/* <div className="flex flex-col gap-1 text-center h-full outline-red-900 w-full justify-between "> */}
+        <div className="grid grid-rows-3 h-full gap-1 text-center py-2 w-full">
+          <div className="teamname1 text-[#6aff74] py-2 text-[1.5rem] mt-3 justify-center items-center flex h-full w-full">
             {" "}
-            {team1?.name}{" "}
+            {team1?.name || "Alex"}{" "}
           </div>
-          <div className="text-[3rem] items-center h-full py-2 flex justify-center text-[#98ff88]">
-            {team1?.kills}
+          <div className="text-[3rem] items-center h-full py-2 flex justify-center text-[#98ff88]  w-full">
+            {team1?.kills || 0}
           </div>
-          <div className="text-[1.5rem] mb-2 text-[#e6ffc9] py-2">{`${team1?.kills}/${team1?.deaths}/${team1?.assists}`}</div>
+          <div className="text-[1.5rem] text-[#e6ffc9] text-center flex justify-center items-center w-full">{`${
+            team1?.kills || 0
+          }/${team1?.deaths || 0}/${team1?.assists || 0}`}</div>
         </div>
-        <div className="w-[200px]">
+        <div className="w-[200px] ">
           <Heatmap incomingEvent={incomingEvent} />
         </div>
-        <div className="flex flex-col gap-1 text-center h-full outline-red-900 w-full justify-between">
-          <div className="teamname2 text-[#ff6666] py-2 text-[2rem] mt-3">
+        {/* <div className="flex flex-col gap-1 text-center h-full outline-red-900 w-full justify-between"> */}
+        <div className="grid grid-rows-3 h-full gap-1 text-center py-2 w-full justify-items-center ">
+          <div className="teamname2 text-[#ff6666] py-2 text-[1.5rem] mt-3 justify-center items-center flex h-full w-full">
             {" "}
-            {team2?.name}{" "}
+            {team2?.name || "Peter"}{" "}
           </div>
-          <div className="text-[3rem] items-center h-full py-2 flex justify-center text-[#ba3232]">
-            {team2?.kills}
+          <div className="text-[3rem] items-center h-full py-2 flex justify-center text-[#ba3232] w-full">
+            {team2?.kills || 0}
           </div>
-          <div className="text-[1.5rem] mb-2 text-[#f4d8d8] py-2">{`${team2?.kills}/${team2?.deaths}/${team2?.assists}`}</div>
+          <div className="text-[1.5rem] text-[#f4d8d8] text-center flex justify-center items-center w-full">{`${
+            team2?.kills || 0
+          }/${team2?.deaths || 0}/${team2?.assists || 0}`}</div>
         </div>
       </div>
       <div className="flex flex-col  xs:text-[.5rem] lg:text-[1rem] xl:text-[1rem] w-[35%] h-full justify-evenly pb-2">
