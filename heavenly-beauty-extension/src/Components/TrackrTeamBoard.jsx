@@ -11,7 +11,7 @@ export default function TrackrTeamBoard(props) {
   // const data = useWebSocketData(); // Use the custom hook to fetch WebSocket data
 
   // console.log("----------------------------------", data);
-  const websocketData = props.websocketData; 
+  const websocketData = props.websocketData;
 
   // console.log(websocketData, '---------------------------------------');
 
@@ -58,13 +58,7 @@ export default function TrackrTeamBoard(props) {
         <TrackrTeamBoardCard player={player8} background={true} />
         <TrackrTeamBoardCard player={player9} background={false} />
         <TrackrTeamBoardCard player={player10} background={true} />
-      </div>
-      <button
-        className="absolute top-1 right-2 border p-1 rounded-lg px-1.5 text-xs text-cyan-400 border-cyan-300 hover:text-red-300 hover:border-red-300"
-        onClick={props.exit}
-      >
-        x
-      </button> */}
+      </div>*/}
     </div>
   );
 }

@@ -6,7 +6,7 @@ import { messageHandlers } from "../Resources/normalization";
 
 function parseWebSocketData(data) {
   try {
-    console.log("Received WebSocket data:", data); // Debugging line
+    // console.log("Received WebSocket data:", data); // Debugging line
 
     if (
       !data ||
@@ -21,7 +21,7 @@ function parseWebSocketData(data) {
     const formattedTimestamp = formatTimestamp(data.occurredAt);
     const firstEvent = data.events[0];
 
-    console.log("First event:", firstEvent); // Debugging line
+    // console.log("First event:", firstEvent); // Debugging line
 
     if (!firstEvent || !firstEvent.type) {
       return null;
@@ -29,17 +29,17 @@ function parseWebSocketData(data) {
 
     const eventType = firstEvent.type;
 
-    console.log("Event type:", eventType); // Debugging line
+    // console.log("Event type:", eventType); // Debugging line
 
     if (messageHandlers[eventType] !== undefined) {
       const formattedData = messageHandlers[eventType].message(
         firstEvent,
         formattedTimestamp
       );
-      console.log(
-        formattedData,
-        "formattedData-----------------------------------------------------"
-      );
+      // console.log(
+      //   formattedData,
+      //   "formattedData-----------------------------------------------------"
+      // );
       return formattedData;
     }
 
@@ -67,8 +67,6 @@ export default function TrackrMain(props) {
   const [websocketData, setWebSocketData] = useState(null);
   const [showWebSocket, setShowWebSocket] = useState(true);
   const [matchId, setMatchId] = useState(null);
-  console.log(props.eventId);
-
   const updateWebSocketData = (data) => {
     setWebSocketData(data);
   };
@@ -194,20 +192,25 @@ export default function TrackrMain(props) {
           matchId={props.eventId}
         />
       )}
-      <div className="w-full border-2 border-red-900">
+      <div className="w-full border-red-900">
         <TrackrTeamBoard
           exit={props.handleExit}
           teams={teams}
           websocketData={websocketData}
         />
       </div>
-      <>hello</>
       <div className="w-full border-2 border-red-200 -bottom-[5vh] absolute h-[5vh]">
         <WebSocketDataDiv
           matchId={props.eventId}
           websocketData={parseWebSocketData(websocketData)}
         />
       </div>
+      <button
+        className="absolute top-1 right-2 border p-1 rounded-lg px-1.5 text-xs text-cyan-400 border-cyan-300 hover:text-red-300 hover:border-red-300"
+        onClick={() => props.closeFunction()}
+      >
+        x
+      </button>
     </div>
   );
 }
