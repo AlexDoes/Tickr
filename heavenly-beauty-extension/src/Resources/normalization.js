@@ -16,18 +16,45 @@ const gridNormalizer = (event) => {
 const messageHandlers = {
   "tournament-started-series": {
     message: (event, formattedTimestamp) => {
-      const [team1, team2] = event.actor.state.teams;
-      const format = event.actor.state.format;
-      return {
-        [formattedTimestamp]: `${team1} and ${team2} started a ${format} series`,
-      };
+      console.log(event, "event inside messageHandler---------------------------------------")
+      const { teams, format } = event.target.state; // Access properties within target.state
+  
+      if (teams && teams.length >= 2) {
+        const [team1, team2] = teams; // Destructure the first two teams
+  
+        // Access the 'name' property within each team object
+        const team1Name = team1.name;
+        const team2Name = team2.name;
+  
+        return {
+          [formattedTimestamp]: `${team1Name} and ${team2Name} started a ${format} series`,
+        };
+      } else {
+        return {}; // Handle the case where there are not enough teams
+      }
     },
   },
+
   "team-picked-character": {
     message: (event, formattedTimestamp) => {
       const actor = event.actor.state.name;
       const target = event.target.id;
       return { [formattedTimestamp]: `${actor} picked ${target}` };
+    },
+  },
+  "player-acquired-item": {
+    message: (event, formattedTimestamp) => {
+      const actor = event.actor.state.name; // This will be "Puppey"
+      const target = event.target.id; // This will be "item_enchanted_mango"
+      return { [formattedTimestamp]: `${actor} picked ${target}` };
+    },
+  },
+  
+  "player-equipped-item": {
+    message: (event, formattedTimestamp) => {
+      const actor = event.actor.state.name; // This will be "Puppey"
+      const target = event.target.id; // This will be "item_enchanted_mango"
+      return { [formattedTimestamp]: `${actor} equipped ${target}` };
     },
   },
   "team-banned-character": {
@@ -42,7 +69,7 @@ const messageHandlers = {
       const [team1, team2] = event.actor.state.teams;
       const format = event.actor.state.format;
       return {
-        [formattedTimestamp]: `${team1.name} and ${team2.name} started a game in thier ${format} series`,
+        [formattedTimestamp]: `${team1.name} and ${team2.name} started a game in their ${format} series`,
       };
     },
   },
@@ -68,7 +95,7 @@ const messageHandlers = {
   "player-selfkilled-player": {
     message: (event, formattedTimestamp) => {
       const actor = event.actor.state.game.name;
-      return { [formattedTimestamp]: `${actor} killed themself` };
+      return { [formattedTimestamp]: `${actor} denied` };
     },
   },
   "game-respawned-player": {

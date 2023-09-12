@@ -58,7 +58,7 @@ export default function TrackrTeamBoard(props) {
           </p>
           <p className="text-[1.5rem] mb-2 text-slate-400 py-2">{`${team1.kills}/${team1.deaths}/${team1.assists}`}</p>
         </div>
-        <div className="w-[400px] h-full">
+        <div className="w-[200px] h-full">
           <Heatmap incomingEvent={incomingEvent} />
         </div>
         {/* <img
