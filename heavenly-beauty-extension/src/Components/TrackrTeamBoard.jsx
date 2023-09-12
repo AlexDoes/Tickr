@@ -10,72 +10,24 @@ export default function TrackrTeamBoard(props) {
   const [player1, player2, player3, player4, player5] = team1.players;
   const [player6, player7, player8, player9, player10] = team2.players;
   const [incomingEvent, setIncomingEvent] = useState(null);
-  const eventTypes = ["death", "goal", "assist"];
 
-  // const data = useWebSocketData(); // Use the custom hook to fetch WebSocket data
-
-  // console.log("----------------------------------", data);
-  //   useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     // Simulate receiving a new event
-  //     const newEvent = {
-  //       x: Math.floor(Math.random() * 15801) - 7900, // Generates values between -7900 and 7900
-  //       y: Math.floor(Math.random() * 15801) - 7900, // Generates values between -7900 and 7900
-  //       eventType: eventTypes[Math.floor(Math.random() * eventTypes.length)]
-  //     };
-  //     setIncomingEvent(newEvent);
-  //     console.log(newEvent);
-  //   }, 1000);
-
-  //   return () => clearInterval(interval);
-  // }, []);
   const websocketData = props.websocketData; 
 
   useEffect(() => {
-    // console.log(websocketData, "WEBSOCKET DATA");
     if (websocketData) {
-      // console.log(websocketData.events, "WEBSOCKET DATA EVENTS");
       for(const event of websocketData.events) {
         if (actionList.has(event.type)) {
           console.log(event, "EVENT");
-          // console.log(event.action, "EVENT ACTION");
-          // console.log(event.target, "EVENT TARGET")
-          // console.log(event.target.state, "EVENT TARGET STATE");
-          // console.log(event.target.state.game, "EVENT TARGET STATE GAME");
-          // console.log(event.target.state.game.position, "EVENT TARGET STATE GAME POSITION");
-          // console.log(event.target.state.position, "EVENT TARGET");
           let pos; 
- 
-          if (event.type === "player-killed-player"){
+          if (event.type === "player-killed-player" || event.type === "player-multikilled-player" || event.type === "player-teamkilled-player" || event.type === "player-selfkilled-player" || event.type === "player-selfrevived-player"){
             pos = event.target.state.game.position;
-          }else
-           if (event.type === "player-multikilled-player"){
-            pos = event.target.state.game.position;
-          }else if (event.type === "player-teamkilled-player"){
-            pos = event.target.state.game.position;
-          }else if (event.type === "player-selfkilled-player"){
-            pos = event.target.state.game.position;
-          }else if (event.type === "player-selfrevived-player"){
-            pos = event.target.state.game.position;
-          }else if (event.type === "player-killed-roshan"){
-            pos = event.target.state.position;
-          }else if (event.type === "player-captured-outpost"){
-            pos = event.target.state.position;
-          }else if (event.type === "player-destroyed-tower"){
-            pos = event.target.state.position;
-          }else if (event.type === "player-destroyed-barracksMelee"){
-            pos = event.target.state.position;
-          }else if (event.type === "player-destroyed-barracksRange"){
-            pos = event.target.state.position;
-          }else if (event.type === "player-destroyed-ancient"){
+          }else{
             pos = event.target.state.position;
           }
-      
-          // console.log(pos, "POS");
           const newEvent = {
             x: pos.x,
             y: pos.y,
-            eventType: event.type
+            eventType: event.action
           };
           setIncomingEvent(newEvent);
           console.log(newEvent, "NEW EVENT NEW EVENT NEW EVENT");
@@ -84,8 +36,6 @@ export default function TrackrTeamBoard(props) {
     }
   }, [websocketData]);
 
-
-  // console.log(websocketData, '---------------------------------------');
 
   return (
     <div className="h-full w-full flex flex-row border-red-700 justify-evenly xs:text-sm lg:text-lg xl:text-xl relative">
@@ -108,7 +58,7 @@ export default function TrackrTeamBoard(props) {
           </p>
           <p className="text-[1.5rem] mb-2 text-slate-400 py-2">{`${team1.kills}/${team1.deaths}/${team1.assists}`}</p>
         </div>
-        <div className="w-[200] h-full">
+        <div className="w-[400px] h-full">
           <Heatmap incomingEvent={incomingEvent} />
         </div>
         {/* <img

@@ -26,7 +26,7 @@ const Heatmap = ({ incomingEvent }) => {
   useEffect(() => {
     if (incomingEvent) {
       // Normalize coordinates
-      console.log(incomingEvent, "INCOMING EVENT");
+      // console.log(incomingEvent, "INCOMING EVENT");
       const normalizedX = normalizeCoordinate(incomingEvent.x, -8000, 8000, 0, 1000);
       const normalizedY = normalizeCoordinate(incomingEvent.y, -8000, 8000, 0, 1000);
 
@@ -72,9 +72,9 @@ const Heatmap = ({ incomingEvent }) => {
   }, [events]);
 
   return (
-    <div className="map-container w-full h-full  min-w-[200px] min-h-[200px]">
-      <img src="https://private-user-images.githubusercontent.com/91306408/266902749-81d2faa9-f0cb-4a5d-b095-fd3b6fda51ae.jpg?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTQ0NTkxODQsIm5iZiI6MTY5NDQ1ODg4NCwicGF0aCI6Ii85MTMwNjQwOC8yNjY5MDI3NDktODFkMmZhYTktZjBjYi00YTVkLWIwOTUtZmQzYjZmZGE1MWFlLmpwZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzA5MTElMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwOTExVDE5MDEyNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTdiZWFhMzY3NWU2OWQ0ZjI5ZjZkNTkxZDQ2MmVkYTQzYTRlODdlNDAxY2VjNDQzNDhiZGNlNDAxYzNkMmNkNDkmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.XksyyDYhCZZDSJGCTD0pf7XVpWDWUSg7kQjdDiJHRRE" alt="Dota 2 Map" className="dota2-map w-full h-full  min-w-[200px] min-h-[200px]" />
-      <canvas ref={canvasRef} className="heatmap-layer w-full h-full min-w-[200px] min-h-[200px]"></canvas>
+    <div className="map-container w-full h-full  min-w-[500px] min-h-[500px]">
+      <img src="https://private-user-images.githubusercontent.com/91306408/266902749-81d2faa9-f0cb-4a5d-b095-fd3b6fda51ae.jpg?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTQ0ODE0MDgsIm5iZiI6MTY5NDQ4MTEwOCwicGF0aCI6Ii85MTMwNjQwOC8yNjY5MDI3NDktODFkMmZhYTktZjBjYi00YTVkLWIwOTUtZmQzYjZmZGE1MWFlLmpwZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzA5MTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwOTEyVDAxMTE0OFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTY1YjM2NWY4YTk0YjliYWRhNzNhODczNDY3ODQ1ZGFjOWQzYWRmOWQ1YjcyM2VhZjFlMjFiMTAxYTUzNjhkZmYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.ro7-vT1SnRl3OVzlu3wgLaGI9MKhGtOSao89dI5zjyU" alt="Dota 2 Map" className="dota2-map w-full h-full  min-w-[500px] min-h-[500px]" />
+      <canvas ref={canvasRef} className="heatmap-layer w-full h-full min-w-[500px] min-h-[500px]"></canvas>
       {/* {popups.map((popup, index) => (
         <div
           key={index}
