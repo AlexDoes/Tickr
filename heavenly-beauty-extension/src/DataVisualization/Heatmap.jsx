@@ -92,7 +92,7 @@ const Heatmap = ({ incomingEvent }) => {
   return (
     <div className="map-container w-full h-full min-w-[200px] min-h-[200px]">
       <img
-        src={DotaMap}
+        src="https://i.imgur.com/Ez6deUk.jpg"
         alt="Dota 2 Map"
         className="dota2-map w-full h-full min-w-[200px] min-h-[200px]"
       />

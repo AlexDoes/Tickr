@@ -61,8 +61,8 @@ export default function TrackrTeamBoard(props) {
   }, [websocketData]);
 
   return (
-    <div className="h-full w-full flex flex-row border-red-700 justify-evenly xs:text-sm lg:text-lg xl:text-xl relative pb-2">
-      <div className="flex flex-col xs:text-[.5rem] lg:text-[1rem] xl:text-[1rem] w-[35%] h-full justify-evenly">
+    <div className="h-full w-full flex flex-row border-red-700 justify-evenly xs:text-sm lg:text-lg xl:text-xl relative">
+      <div className="flex flex-col xs:text-[.5rem] lg:text-[1rem] xl:text-[1rem] w-[35%] h-full justify-evenly pb-2">
         <div className="text-center font-bold text-[#37ff44]">Radiant</div>
         <TrackrTeamBoardCard
           player={player1}
@@ -119,7 +119,7 @@ export default function TrackrTeamBoard(props) {
           <p className="text-[1.5rem] mb-2 text-[#f4d8d8] py-2">{`${team2.kills}/${team2.deaths}/${team2.assists}`}</p>
         </div>
       </div>
-      <div className="flex flex-col  xs:text-[.5rem] lg:text-[1rem] xl:text-[1rem] w-[35%] h-full justify-evenly">
+      <div className="flex flex-col  xs:text-[.5rem] lg:text-[1rem] xl:text-[1rem] w-[35%] h-full justify-evenly pb-2">
         <div className="text-center font-bold text-[#ff6666]  ">Dire</div>
         <TrackrTeamBoardCard
           player={player6}

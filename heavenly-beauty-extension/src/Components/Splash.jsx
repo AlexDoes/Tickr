@@ -20,7 +20,7 @@ export default function Splash(props) {
           target="_blank"
         >
           <img
-            src="https://private-user-images.githubusercontent.com/91306408/266902753-76431dd8-497f-4756-a1bc-b1e26d384ee5.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTQ0MDQ1MDgsIm5iZiI6MTY5NDQwNDIwOCwicGF0aCI6Ii85MTMwNjQwOC8yNjY5MDI3NTMtNzY0MzFkZDgtNDk3Zi00NzU2LWExYmMtYjFlMjZkMzg0ZWU1LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzA5MTElMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwOTExVDAzNTAwOFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWQ4MDU0M2Q3MDc4ODUwZWEyZDJlYTU0MjcwZWQwMjYyM2NmNzgyNWE5ZmM2ZGFlMmY1OTI2ODNjOWRiYmU0OWQmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.JV9nMO54FPZFqu3Gt43kssTHqfKk9ipM922_g1K0ZeI"
+            src="https://imgur.com/JkwSkV0.png"
             alt="extensionIcon"
             className="h-[80%] px-2 rounded-3xl"
           />
