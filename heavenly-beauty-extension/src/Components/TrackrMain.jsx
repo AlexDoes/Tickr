@@ -36,10 +36,10 @@ function parseWebSocketData(data) {
         firstEvent,
         formattedTimestamp
       );
-      // console.log(
-      //   formattedData,
-      //   "formattedData-----------------------------------------------------"
-      // );
+      console.log(
+        formattedData,
+        "formattedData-----------------------------------------------------"
+      );
       return formattedData;
     }
 
@@ -185,7 +185,7 @@ export default function TrackrMain(props) {
   ];
 
   return (
-    <div className="h-full w-full flex flex-col overflow-visible relative border-4">
+    <div className="h-full w-full flex flex-col overflow-visible relative">
       {showWebSocket && (
         <WebSocketComponent
           onDataReceived={updateWebSocketData}

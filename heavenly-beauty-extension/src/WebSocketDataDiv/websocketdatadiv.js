@@ -51,7 +51,7 @@ function WebSocketDataDiv(props) {
   }, [websocketData]);
 
   return (
-    <div className="text-xl font-bold border-yellow-200 overflow-hidden h-[5vh] flex justify-center items-center">
+    <div className="text-xl font-bold border-yellow-200 overflow-hidden h-[5vh] flex items-center">
       <div
         ref={messagesContainerRef}
         className="text-red-600 whitespace-nowrap flex overflow-x-hidden animate-scroll-left"
