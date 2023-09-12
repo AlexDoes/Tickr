@@ -87,19 +87,22 @@ export default function Splash(props) {
         </ul> */}
         {/* will fix later */}
         <div className="w-full border-2 relative bg-slate-800 text-md text-emerald-400 rounded-md cursor-pointer min-h-1/4 h-1/4 text-sm break-normal">
-          <button onClick={() => setIsOpen(!isOpen)} className="w-full h-full">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="w-full h-full px-1"
+          >
             {selectedMatch ? matchMap[selectedMatch] : "Select a game"}
           </button>
 
           {isOpen && (
             <ul
-              className={`dropdown-menu absolute flex flex-col items-start border-2 bg-slate-700 text-sm w-full`}
+              className={`dropdown-menu absolute flex flex-col items-start border-2 bg-slate-700 text-sm w-full py-2 rounded-bl-lg rounded-br-lg`}
             >
               {Object.values(matchMap)
                 .sort((a, b) => a[0] - b[0])
                 .map((match) => (
                   <li
-                    className="cursor-pointer hover:bg-slate-800 w-full items-start text-start"
+                    className="cursor-pointer hover:bg-slate-800 w-full items-start text-start px-2"
                     key={match}
                     onClick={() => {
                       let key = Object.keys(matchMap).find(

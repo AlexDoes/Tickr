@@ -15,14 +15,14 @@ window.renderReactApp = function () {
       appRoot
     );
   }
-  ReactDOM.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
-    testRoot
-  );
+  // ReactDOM.render(
+  //   <React.StrictMode>
+  //     <App />
+  //   </React.StrictMode>,
+  //   testRoot
+  // );
 };
 
-window.renderReactApp();
+// window.renderReactApp();
 
 reportWebVitals();
