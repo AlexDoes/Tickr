@@ -7,11 +7,11 @@
 // const minutes = normalizeTime(messageTimestamp.getMinutes());
 // const seconds = normalizeTime(messageTimestamp.getSeconds());
 // const formattedTimestamp = `${hours}:${minutes}:${seconds}`;
-const gridNormalizer = (event) => {
-  const actor = event.actor.state.game.name;
-  const position = event.actor.state.game.position;
-  return { type: event.type, actor: actor, position: position };
-};
+// const gridNormalizer = (event) => {
+//   const actor = event.actor.state.game.name;
+//   const position = event.actor.state.game.position;
+//   return { type: event.type, actor: actor, position: position };
+// };
 
 const messageHandlers = {
   "tournament-started-series": {
@@ -274,4 +274,4 @@ const stateNormalizer = (event) => {
 //   }
 // ]
 
-export { gridNormalizer, stateNormalizer, messageHandlers };
+export { stateNormalizer, messageHandlers };
