@@ -534,6 +534,9 @@ video {
 .h-full {
   height: 100%;
 }
+.min-h-\[200px\] {
+  min-height: 200px;
+}
 .w-1\/2 {
   width: 50%;
 }
@@ -549,6 +552,9 @@ video {
 .w-\[100vw\] {
   width: 100vw;
 }
+.w-\[200px\] {
+  width: 200px;
+}
 .w-\[20px\] {
   width: 20px;
 }
@@ -560,6 +566,9 @@ video {
 }
 .w-full {
   width: 100%;
+}
+.min-w-\[200px\] {
+  min-width: 200px;
 }
 .cursor-pointer {
   cursor: pointer;
@@ -591,11 +600,14 @@ video {
 .gap-4 {
   gap: 1rem;
 }
+.overflow-hidden {
+  overflow: hidden;
+}
 .overflow-visible {
   overflow: visible;
 }
-.overflow-x-auto {
-  overflow-x: auto;
+.overflow-x-hidden {
+  overflow-x: hidden;
 }
 .whitespace-nowrap {
   white-space: nowrap;

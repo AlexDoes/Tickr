@@ -55,7 +55,7 @@
 
 .heatmap-layer {
   pointer-events: none;
-  /* background-color: rgba(0, 0, 40, 15); */
+  background-color: rgba(0, 0, 40, 15);
   opacity: .8;
 }
 
