@@ -8,8 +8,12 @@
   "action": {
     "default_icon": {
       "32": "fav_images/favicon-32x32.png",
-      "16": "fav_images/favicon-16x16.png"
+      "16": "fav_images/favicon-16x16.png",
+      "128": "fav_images/icon-128x128.png"
     }
+  },
+  "icons": {
+    "128": "fav_images/icon-128x128.png"
   },
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'; connect-src ws://localhost:8080/; style-src 'self' 'unsafe-inline';"
