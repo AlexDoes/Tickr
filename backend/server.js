@@ -27,7 +27,7 @@ wss.on("connection", async function connection(ws, req) {
       ws.send(JSON.stringify(line));
 
       // Introduce a delay between processing events (adjust the delay as needed)
-      await new Promise((resolve) => setTimeout(resolve, 800)); // Adjust the delay in milliseconds as needed
+      await new Promise((resolve) => setTimeout(resolve, 90)); // Adjust the delay in milliseconds as needed
     });
   };
 
