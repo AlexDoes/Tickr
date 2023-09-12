@@ -1,26 +1,75 @@
 import { useEffect, useState } from "react";
 import { eventHandlers, stateNormalizer } from "../Resources/normalization";
 
-class Queue {
+// class Queue {
+//   constructor() {
+//     this.items = [];
+//   }
+
+//   enqueue(item) {
+//     this.items.push(item);
+//   }
+
+//   dequeue() {
+//     if (this.isEmpty()) return null;
+//     return this.items.shift();
+//   }
+
+//   isEmpty() {
+//     return this.items.length === 0;
+//   }
+
+//   size() {
+//     return this.items.length;
+//   }
+// }
+
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+    this.prev = null;
+  }
+}
+
+class LinkedListQueue {
   constructor() {
-    this.items = [];
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
   }
 
-  enqueue(item) {
-    this.items.push(item);
+  enqueue(value) {
+    const newNode = new Node(value);
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      this.tail.next = newNode;
+      newNode.prev = this.tail;
+      this.tail = newNode;
+    }
+    this.length++;
   }
 
   dequeue() {
-    if (this.isEmpty()) return null;
-    return this.items.shift();
+    if (!this.head) return null;
+
+    const removedValue = this.head.value;
+    this.head = this.head.next;
+    if (this.head) this.head.prev = null;
+    else this.tail = null; // Queue is now empty
+
+    this.length--;
+    return removedValue;
   }
 
   isEmpty() {
-    return this.items.length === 0;
+    return this.length === 0;
   }
 
   size() {
-    return this.items.length;
+    return this.length;
   }
 }
 
@@ -137,7 +186,7 @@ const SUPPORTEDEVENTTYPES = [
 
 export function useWebSocketData() {
   const [data, setData] = useState(null);
-  const messageQueue = new Queue();
+  const messageQueue = new LinkedListQueue();
   const [timestamp, setTimestamp] = useState([]);
 
   useEffect(() => {
@@ -150,15 +199,16 @@ export function useWebSocketData() {
           const formattedTimestamp = formatTimestamp(messageTimestamp);
 
           const messageEvents = message.data.events.map((event) => {
-            // const messageHandler =
-            //   eventHandlers[event.type] || eventHandlers["default"];
+            const messageHandler =
+              eventHandlers[event.type] || eventHandlers["default"];
             // const stateHandler = stateNormalizer(event);
 
             // return [
             //   messageHandler.message(event, formattedTimestamp),
             //   stateHandler,
             // ];
-            return stateNormalizer(event, formattedTimestamp);
+            // return stateNormalizer(event, formattedTimestamp); ////// COMMENTED THIS OUT 9/12/21 4:22PM COMMENT BACK THIS IN IF STILL THROTTLING
+            return [messageHandler.message(event, formattedTimestamp)];
           });
 
           // if (MESSAGEEVENTS.includes(message.data.events[0].type)) {
