@@ -198,10 +198,15 @@ const messageHandlers = {
 };
 
 const stateNormalizer = (event) => {
-  console.log(event);
   const games = event.seriesState.games;
-  const game = games[games.length - 1];
-  const teams = game.teams;
+  let teams;
+  if (event.type === "tournament-started-series") {
+    teams = event.target.state.teams;
+  } else {
+    teams = games[games.length - 1].teams;
+  }
+  // const game = games[games.length - 1];
+  // const teams = game.teams;
   const normalizedTeams = [];
   for (const team of teams) {
     const players = [];
@@ -210,7 +215,7 @@ const stateNormalizer = (event) => {
         // alive: player.alive,
         // character: player.character.name,
         deaths: player.deaths,
-        items: [...player.items],
+        // items: [...player.items],
         assists: player.killAssistsGiven,
         kills: player.kills,
         money: player.money,
@@ -233,10 +238,10 @@ const stateNormalizer = (event) => {
   }
 
   return {
-    clock: {
-      ticking: game.clock.ticking,
-      currentSeconds: game.clock.currentSeconds,
-    },
+    // clock: {
+    //   ticking: game.clock.ticking,
+    //   currentSeconds: game.clock.currentSeconds,
+    // },
     teams: normalizedTeams,
   };
 };

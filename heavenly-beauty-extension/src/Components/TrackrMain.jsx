@@ -43,10 +43,13 @@ function parseWebSocketData(data) {
         firstEvent,
         formattedTimestamp
       );
-      console.log(
-        formattedData,
-        "formattedData-----------------------------------------------------"
-      );
+      // console.log(
+      //   formattedData,
+      //   "formattedData-----------------------------------------------------"
+      // );
+
+      // const formattedData = stateNormalizer(firstEvent);
+      // console.log(formattedData);
       return formattedData;
     }
 

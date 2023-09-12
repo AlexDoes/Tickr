@@ -1,5 +1,5 @@
 export default function TrackrTeamBoardCard(props) {
-  const { name, money, kills, deaths, assists, items } = props.player;
+  const { name, money, kills, deaths, assists, items } = props?.player;
 
   if (props.background) {
     return (
