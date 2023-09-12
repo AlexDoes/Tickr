@@ -223,8 +223,12 @@ const stateNormalizer = (event) => {
         name: player.name,
         position: player.position,
       };
+      if (player.character?.name) {
+        playerObj.character = player.character.name;
+      }
       players.push(playerObj);
     }
+
     const obj = {
       name: team.name,
       side: team.side,
