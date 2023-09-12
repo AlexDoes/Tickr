@@ -19,5 +19,18 @@ wss.on("connection", async function connection(ws, req) {
 
   console.log("Emitting", jsfiles[0]);
   const eventsFile = jsonlFile(jsfiles[0]);
-  eventsFile.read((line) => ws.send(JSON.stringify(line)));
+
+  // Read and send messages from the file with a delay between events
+  const sendMessagesWithDelay = async () => {
+    eventsFile.read(async (line) => {
+      // Send the message
+      ws.send(JSON.stringify(line));
+
+      // Introduce a delay between processing events (adjust the delay as needed)
+      await new Promise((resolve) => setTimeout(resolve, 800)); // Adjust the delay in milliseconds as needed
+    });
+  };
+
+  // Call the function to start sending messages with a delay
+  sendMessagesWithDelay();
 });
