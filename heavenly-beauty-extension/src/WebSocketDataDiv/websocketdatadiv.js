@@ -10,7 +10,7 @@ function WebSocketDataDiv(props) {
     const initialPlaceholders = [
       "THANK YOU FOR CHECKING OUT OUR EXTENSION",
       "PLEASE WAIT WHILE WE LOAD THE DATA!",
-      "- HEAVENLY BEAUTY DEVELOPERS",
+      "- TICKR DEVELOPER TEAM",
     ];
     return initialPlaceholders;
   });

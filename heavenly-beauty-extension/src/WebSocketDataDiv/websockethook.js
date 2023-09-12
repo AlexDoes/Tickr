@@ -150,15 +150,16 @@ export function useWebSocketData() {
           const formattedTimestamp = formatTimestamp(messageTimestamp);
 
           const messageEvents = message.data.events.map((event) => {
-            // const messageHandler =
-            //   eventHandlers[event.type] || eventHandlers["default"];
+            const messageHandler =
+              eventHandlers[event.type] || eventHandlers["default"];
             // const stateHandler = stateNormalizer(event);
 
             // return [
             //   messageHandler.message(event, formattedTimestamp),
             //   stateHandler,
             // ];
-            return stateNormalizer(event, formattedTimestamp);
+            // return stateNormalizer(event, formattedTimestamp); ////// COMMENTED THIS OUT 9/12/21 4:22PM COMMENT BACK THIS IN IF STILL THROTTLING
+            return [messageHandler.message(event, formattedTimestamp)];
           });
 
           // if (MESSAGEEVENTS.includes(message.data.events[0].type)) {

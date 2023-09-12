@@ -49,7 +49,7 @@ export default function TrackrTeamBoard(props) {
   useEffect(() => {
     if (websocketData) {
       for (const event of websocketData.events) {
-        // console.log("event-----------------", event);
+        console.log("event-----------------", event);
         if (
           event.type !== "grid-started-feed" &&
           event.type !== "grid-ended-feed"
@@ -110,7 +110,7 @@ export default function TrackrTeamBoard(props) {
           player={player1}
           background={true}
           radiant={true}
-          cardPosition={1}
+          cardPosition={"top"}
         />
         <TrackrTeamBoardCard
           player={player2}
@@ -131,7 +131,7 @@ export default function TrackrTeamBoard(props) {
           player={player5}
           background={true}
           radiant={true}
-          cardPosition={5}
+          cardPosition={"bottom"}
         />
       </div>
       <div className="h-full border-yellow-200 w-[25%] flex justify-evenly items-center gap-1">
@@ -169,7 +169,7 @@ export default function TrackrTeamBoard(props) {
           player={player6}
           background={true}
           radiant={false}
-          cardPosition={1}
+          cardPosition={"top"}
         />
         <TrackrTeamBoardCard
           player={player7}
@@ -190,7 +190,7 @@ export default function TrackrTeamBoard(props) {
           player={player10}
           background={true}
           radiant={false}
-          cardPosition={5}
+          cardPosition={"bottom"}
         />
       </div>
       {/* <button
