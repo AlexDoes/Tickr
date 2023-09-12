@@ -41,7 +41,6 @@ function Dashboard() {
   //   }
   // }, []); // Run this effect only once when the component mounts
 
-
   let matchMap = {
     2432453: "Finals",
     2364966: "Semifinals",
