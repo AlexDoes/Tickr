@@ -185,7 +185,7 @@ export default function TrackrMain(props) {
   ];
 
   return (
-    <div className="h-full w-full flex flex-col overflow-visible relative border-cyan-700">
+    <div className="h-full w-full flex flex-col overflow-visible relative border-cyan-700 px-4">
       {showWebSocket && (
         <WebSocketComponent
           onDataReceived={updateWebSocketData}
@@ -206,7 +206,7 @@ export default function TrackrMain(props) {
         />
       </div>
       <button
-        className="absolute top-1 right-2 border p-1 rounded-lg px-1.5 text-xs text-cyan-400 border-cyan-300 hover:text-red-300 hover:border-red-300"
+        className="absolute top-1 right-2 border-2 p-1 rounded-lg px-2 text-xs text-cyan-400 border-cyan-300 hover:text-red-300 hover:border-red-300"
         onClick={() => props.closeFunction()}
       >
         x

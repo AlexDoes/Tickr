@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import * as d3 from 'd3';
+import React, { useEffect, useRef, useState } from "react";
+import * as d3 from "d3";
 import DotaMap from "../assets/dotaMap.jpg";
 
 const normalizeCoordinate = (value, inMin, inMax, outMin, outMax) => {
@@ -22,15 +22,30 @@ const Heatmap = ({ incomingEvent }) => {
 
   useEffect(() => {
     if (incomingEvent) {
-      const normalizedX = normalizeCoordinate(incomingEvent.x, -8000, 8000, 0, 1000);
-      const normalizedY = normalizeCoordinate(incomingEvent.y, -8000, 8000, 0, 1000);
-      setEvents((prevEvents) => [...prevEvents, { ...incomingEvent, x: normalizedX, y: normalizedY }]);
+      const normalizedX = normalizeCoordinate(
+        incomingEvent.x,
+        -8000,
+        8000,
+        0,
+        1000
+      );
+      const normalizedY = normalizeCoordinate(
+        incomingEvent.y,
+        -8000,
+        8000,
+        0,
+        1000
+      );
+      setEvents((prevEvents) => [
+        ...prevEvents,
+        { ...incomingEvent, x: normalizedX, y: normalizedY },
+      ]);
     }
   }, [incomingEvent]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     const width = 1000;
     const height = 1000;
     const radius = 50;
@@ -41,9 +56,12 @@ const Heatmap = ({ incomingEvent }) => {
       canvas.height = height;
     }
 
-    const colorScale = d3.scaleSequential(d => d3.interpolate(`rgba(0, 0, 255, ${d})`, `rgba(255, 0, 0, ${d})`)(d)).domain([0, 2]);
-
-;
+    // const colorScale = d3
+    //   .scaleSequential((d) =>
+    //     d3.interpolate(`rgba(0, 0, 255, ${d})`, `rgba(255, 0, 0, ${d})`)(d)
+    //   )
+    //   .domain([0, 2]);
+    const colorScale = d3.scaleSequential(d3.interpolateWarm).domain([0, 2]);
 
     if (events.length > 0) {
       const lastEvent = events[events.length - 1];
@@ -63,7 +81,7 @@ const Heatmap = ({ incomingEvent }) => {
           data[0] = Math.min(255, data[0] + color.r);
           data[1] = Math.min(255, data[1] + color.g);
           data[2] = Math.min(255, data[2] + color.b);
-          data[3] = Math.min(255, data[3] + Math.floor(intensity * 255 / 2));
+          data[3] = Math.min(255, data[3] + Math.floor((intensity * 255) / 2));
 
           ctx.putImageData(imageData, x, y);
         }
@@ -73,8 +91,15 @@ const Heatmap = ({ incomingEvent }) => {
 
   return (
     <div className="map-container w-full h-full min-w-[200px] min-h-[200px]">
-      <img src={DotaMap} alt="Dota 2 Map" className="dota2-map w-full h-full min-w-[200px] min-h-[200px]" />
-      <canvas ref={canvasRef} className="heatmap-layer w-full h-full min-w-[200px] min-h-[200px]"></canvas>
+      <img
+        src={DotaMap}
+        alt="Dota 2 Map"
+        className="dota2-map w-full h-full min-w-[200px] min-h-[200px]"
+      />
+      <canvas
+        ref={canvasRef}
+        className="heatmap-layer w-full h-full min-w-[200px] min-h-[200px]"
+      ></canvas>
     </div>
   );
 };

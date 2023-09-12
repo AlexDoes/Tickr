@@ -31,34 +31,34 @@ export default function TrackrTeamBoard(props) {
   const websocketData = props.websocketData;
   console.log(websocketData, "WEBSOCKET DATA IN TEAMBOARD");
 
-  // useEffect(() => {
-  //   if (websocketData) {
-  //     for (const event of websocketData.events) {
-  //       if (actionList.has(event.type)) {
-  //         console.log(event, "EVENT");
-  //         let pos;
-  //         if (
-  //           event.type === "player-killed-player" ||
-  //           event.type === "player-multikilled-player" ||
-  //           event.type === "player-teamkilled-player" ||
-  //           event.type === "player-selfkilled-player" ||
-  //           event.type === "player-selfrevived-player"
-  //         ) {
-  //           pos = event.target.state.game.position;
-  //         } else {
-  //           pos = event.target.state.position;
-  //         }
-  //         const newEvent = {
-  //           x: pos.x,
-  //           y: pos.y,
-  //           eventType: event.action,
-  //         };
-  //         setIncomingEvent(newEvent);
-  //         console.log(newEvent, "NEW EVENT NEW EVENT NEW EVENT");
-  //       }
-  //     }
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (websocketData) {
+      for (const event of websocketData.events) {
+        if (actionList.has(event.type)) {
+          console.log(event, "EVENT");
+          let pos;
+          if (
+            event.type === "player-killed-player" ||
+            event.type === "player-multikilled-player" ||
+            event.type === "player-teamkilled-player" ||
+            event.type === "player-selfkilled-player" ||
+            event.type === "player-selfrevived-player"
+          ) {
+            pos = event.target.state.game.position;
+          } else {
+            pos = event.target.state.position;
+          }
+          const newEvent = {
+            x: pos.x,
+            y: pos.y,
+            eventType: event.action,
+          };
+          setIncomingEvent(newEvent);
+          console.log(newEvent, "NEW EVENT NEW EVENT NEW EVENT");
+        }
+      }
+    }
+  }, [websocketData]);
 
   return (
     <div className="h-full w-full flex flex-row border-red-700 justify-evenly xs:text-sm lg:text-lg xl:text-xl relative pb-2">
@@ -92,14 +92,14 @@ export default function TrackrTeamBoard(props) {
       </div>
       <div className="h-full border-yellow-200 w-[25%] flex justify-evenly items-center gap-1">
         <div className="flex flex-col gap-1 text-center h-full outline-red-900 w-full justify-between">
-          <p className="teamname1 text-[#37ff44] py-2 text-[2rem] mt-2 ">
+          <p className="teamname1 text-[#6aff74] py-2 text-[2rem] mt-3 ">
             {" "}
             {team1.name}{" "}
           </p>
           <p className="text-[3rem] items-center h-full py-2 flex justify-center text-[#98ff88]">
             {team1.kills}
           </p>
-          <p className="text-[1.5rem] mb-2 text-slate-400 py-2">{`${team1.kills}/${team1.deaths}/${team1.assists}`}</p>
+          <p className="text-[1.5rem] mb-2 text-[#e6ffc9] py-2">{`${team1.kills}/${team1.deaths}/${team1.assists}`}</p>
         </div>
         <div className="w-[200px] h-full">
           <Heatmap incomingEvent={incomingEvent} />
@@ -109,14 +109,14 @@ export default function TrackrTeamBoard(props) {
           src="https://private-user-images.githubusercontent.com/91306408/266902749-81d2faa9-f0cb-4a5d-b095-fd3b6fda51ae.jpg?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTQ0NTkxODQsIm5iZiI6MTY5NDQ1ODg4NCwicGF0aCI6Ii85MTMwNjQwOC8yNjY5MDI3NDktODFkMmZhYTktZjBjYi00YTVkLWIwOTUtZmQzYjZmZGE1MWFlLmpwZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzA5MTElMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwOTExVDE5MDEyNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTdiZWFhMzY3NWU2OWQ0ZjI5ZjZkNTkxZDQ2MmVkYTQzYTRlODdlNDAxY2VjNDQzNDhiZGNlNDAxYzNkMmNkNDkmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.XksyyDYhCZZDSJGCTD0pf7XVpWDWUSg7kQjdDiJHRRE"
         ></img> */}
         <div className="flex flex-col gap-1 text-center h-full outline-red-900 w-full justify-between">
-          <p className="teamname2 text-[#ff6666] py-2 text-[2rem] mt-2">
+          <p className="teamname2 text-[#ff6666] py-2 text-[2rem] mt-3">
             {" "}
             {team2.name}{" "}
           </p>
           <p className="text-[3rem] items-center h-full py-2 flex justify-center text-[#ba3232]">
             {team2.kills}
           </p>
-          <p className="text-[1.5rem] mb-2 text-slate-400 py-2">{`${team2.kills}/${team2.deaths}/${team2.assists}`}</p>
+          <p className="text-[1.5rem] mb-2 text-[#f4d8d8] py-2">{`${team2.kills}/${team2.deaths}/${team2.assists}`}</p>
         </div>
       </div>
       <div className="flex flex-col  xs:text-[.5rem] lg:text-[1rem] xl:text-[1rem] w-[35%] h-full justify-evenly">

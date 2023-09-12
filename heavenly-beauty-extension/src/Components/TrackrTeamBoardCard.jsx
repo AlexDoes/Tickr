@@ -8,7 +8,7 @@ export default function TrackrTeamBoardCard(props) {
         className={`flex h-1/6 items-center w-full bg-gradient-to-r ${
           props.radiant
             ? "justify-end bg-gradient-to-r from-[#f5f5f5] via-slate-600 to-[#068d45]"
-            : "justify-start bg-gradient-to-l to-[#f5f5f5] via-slate-600 from-[#950a05]"
+            : "justify-start bg-gradient-to-l to-[#f5f5f5] via-slate-800 from-[#d12721]"
         }`}
       >
         <div className="grid grid-cols-7 grid-rows-1 gap-4 justify-items-center items-center h-full ">
