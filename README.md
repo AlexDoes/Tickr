@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a Chrome extension that provides updates via websockets for selected Doa 2 games. It includes a ticker for incoming game data and a heatmap that reflects the intensity of activity in different areas of the Dota 2 map.
+This is a Chrome extension that provides updates via websockets for selected Dota 2 games. It includes a ticker for incoming game data and a heatmap that reflects the intensity of activity in different areas of the Dota 2 map.
 
 ## Features
 
