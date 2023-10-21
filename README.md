@@ -1,8 +1,10 @@
-# Dota 2 Ticker Chrome Extension
+# Dota 2 Ticker Chrome Extension - Hackathon Winner 2nd Place
+
+![image](https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/002/584/534/datas/gallery.jpg)
 
 ## Description
 
-This is a Chrome extension that provides updates via websockets for selected Dota 2 games. It includes a ticker for incoming game data and a heatmap that reflects the intensity of activity in different areas of the Dota 2 map.
+This is a Chrome/OperaGX extension that provides updates via websockets for selected Dota 2 games. It includes a ticker for incoming game data and a heatmap that reflects the intensity of activity in different areas of the Dota 2 map.
 
 ## Features
 
